@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +15,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('lms/home');
+    return view('pages/home');
 });
 Route::get('/home', function () {
-    return view('lms/home');
+    return view('pages/home');
+});
+Route::get('/authors', function () {
+    return view('pages/authors');
+});
+Route::get('/publishers', function () {
+    return view('pages/publishers');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
+    
+    Route::get('/dashboard', [HomeController::class, 'redirectUser'])->name('dashboard');
+
+    
+});
+
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:admin'])->group(function () {
+    
+    Route::get('/admin/dashboard', function () {
+        return view('admin/dashboard');
+    })->name('admin.dashboard');
+
 });

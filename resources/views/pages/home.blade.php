@@ -7,7 +7,7 @@
 
 
 
-        <section style="background-color: rgba(238, 238, 238, 0.664);">
+        <section style="background-color: rgba(238, 238, 238, 0.664);" class="m-5">
             <div class="container p-5">
                 <h2 class="text-center text-white mb-5"><strong>Categories</strong></h2>
 
