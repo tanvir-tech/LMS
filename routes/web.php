@@ -26,6 +26,9 @@ Route::get('/authors', function () {
 Route::get('/publishers', function () {
     return view('frontend/publishers');
 });
+Route::get('/categories', function () {
+    return view('frontend/categories');
+});
 
 
 

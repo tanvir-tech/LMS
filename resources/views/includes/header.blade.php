@@ -19,8 +19,20 @@
                     <a class="nav-link" href="/publishers">Publishers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Subjects</a>
+                    <a class="nav-link" href="/categories">Categories</a>
                 </li>
+
+                @if (Auth::guard('web')->check() && Auth::user()->hasRole('admin'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/dashboard">ApproveList</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/issueList">IssueList</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/createBook">Add Book</a>
+                    </li>
+                @endif
 
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -28,11 +40,26 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
 
-            <div class="p-3">
-                <a class="nav-link" href="/login">Login</a>
-            </div>
 
-           
+            <div class="p-2">
+                @if (Auth::guard('web')->check())
+                {{-- <a class="nav-link" href="/admin/dashboard">Dashboard</a> --}}
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <div class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();this.closest('form').submit(); " role="button">
+                            <i class="fas fa-sign-out-alt"></i>
+                            {{ __('Log Out') }}
+                        </a>
+                    </div>
+                </form>
+            @else
+                <a class="nav-link" href="/login">Login</a>
+            @endif
+            </div>
+            
 
         </div>
     </nav>
@@ -41,11 +68,7 @@
 
 
 
-    {{-- @if (Auth::guard('admin')->check())
-                    <a href="/admin/dashboard" class="logo logo-light">
-                    @else
-                        <a href="dashboard" class="logo logo-light">
-                @endif --}}
+
 
 
 
