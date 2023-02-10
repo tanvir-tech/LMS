@@ -39,10 +39,20 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
 
 //admin
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:admin'])->group(function () {
     
-    Route::get('/admin/dashboard', function () {
-        return view('admin/dashboard');
+    Route::get('/dashboard', function () {
+        return view('backend/approveList');
     })->name('admin.dashboard');
 
+    Route::get('/issueList', function () {
+        return view('backend/issueList');
+    });
+    Route::get('/createBook', function () {
+        return view('backend/createBook');
+    });
+
 });
+
+
+
