@@ -15,19 +15,21 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', function () {
-    return view('pages/home');
+    return view('frontend/home');
 });
 Route::get('/home', function () {
-    return view('pages/home');
+    return view('frontend/home');
 });
 Route::get('/authors', function () {
-    return view('pages/authors');
+    return view('frontend/authors');
 });
 Route::get('/publishers', function () {
-    return view('pages/publishers');
+    return view('frontend/publishers');
 });
 
 
+
+//user
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     
     Route::get('/dashboard', [HomeController::class, 'redirectUser'])->name('dashboard');
@@ -35,6 +37,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     
 });
 
+
+//admin
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:admin'])->group(function () {
     
     Route::get('/admin/dashboard', function () {
