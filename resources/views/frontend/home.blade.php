@@ -1,62 +1,63 @@
 @extends('includes/master')
 @section('content')
     <div class="container">
-        
-{{-- Book card start --}}
-        <div class="card p-2">
-            <div class="row">
-                <div class="col-md-3">
-                    <img class="bookimg" src="https://edu41.net/wp-content/uploads/2021/03/sarah-book-2.jpg" alt="Book photo">
-                </div>
-                <div class="col-md-6">
-                    <div class="card-header">
-                        <h3>Living on the edge</h3>
-                        <h5>Edition : 6th</h5>
-                        <h6>Author : author-name</h6>
+
+        @foreach ($books as $book)
+            {{-- Book card start --}}
+            <div class="card p-2">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img class="bookimg" src="{{asset('gallery/'.$book['bookcoverlink'])}}"
+                            alt="Book photo">
                     </div>
+                    <div class="col-md-6">
+                        <div class="card-header">
+                            <h3>{{ $book['bookname'] }}</h3>
+                            <h5>Edition : {{ $book['edition'] }}</h5>
+                            <h6>Author : {{ $book['authorname'] }}</h6>
+                        </div>
 
-                    <div class="card-body">
+                        <div class="card-body">
 
-                        <p>-------------Description-------------</p>
+                            <p>{{ $book['description'] }}</p>
+
+                        </div>
+
+                        <div class="card-footer">
+                            <h6>
+                                Category: {{ $book['category'] }}
+                                <br>
+                                Publisher: {{ $book['publisher'] }}
+                            </h6>
+                        </div>
 
                     </div>
+                    <div class="col-md-3">
 
-                    <div class="card-footer">
-                        <h6>
-                            Category:
-                            <br>
-                            Publisher:
-                        </h6>
-                    </div>
+                        <div class="">
+                            <h6>
+                                Available Quantity: {{ $book['quantity'] }}
+                                <br>
+                                Call ID: {{ $book['callid'] }}
+                            </h6>
 
-                </div>
-                <div class="col-md-3">
-                    
-                    <div class="">
-                        <h6>
-                            Available Quantity :
-                            <br>
-                            Call ID :
-                        </h6>
+                            @if (Auth::guard('web')->check() && Auth::user()->hasRole('admin'))
+                                <form action="{{ route('book.destroy', ['book' => $book->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            @elseif(Auth::guard('web')->check() && Auth::user()->hasRole('user'))
+                                <button class="btn btn-success">
+                                    Borrow
+                                </button>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-{{-- Book card end --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            {{-- Book card end --}}
+        @endforeach
 
 
 

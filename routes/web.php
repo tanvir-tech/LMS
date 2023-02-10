@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
@@ -14,12 +15,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend/home');
-});
-Route::get('/home', function () {
-    return view('frontend/home');
-});
+
 Route::get('/authors', function () {
     return view('frontend/authors');
 });
@@ -29,7 +25,8 @@ Route::get('/publishers', function () {
 Route::get('/categories', function () {
     return view('frontend/categories');
 });
-
+Route::get('/', [BookController::class, 'index']);
+Route::get('/home', [BookController::class, 'index']);
 
 
 //user
@@ -55,7 +52,10 @@ Route::prefix('admin')->middleware(['auth:sanctum',config('jetstream.auth_sessio
         return view('backend/createBook');
     });
 
+    Route::resource('/book', BookController::class);
+
 });
+
 
 
 
