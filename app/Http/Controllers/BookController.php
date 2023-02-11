@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\View;
 
 class BookController extends Controller
 {
@@ -95,9 +96,12 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit($id)
     {
-        //
+        $book = Book::find($id);
+
+        // show the edit form and pass the shark
+        return View::make('backend/editBook')->with('book', $book);
     }
 
     /**
@@ -107,9 +111,39 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request  $req, $id)
     {
-        //
+        $req->validate([
+            'bookname' => 'required',
+            'authorname' => 'required',
+            'publisher' => 'required',
+            'category' => 'required',
+            'edition' => 'required',
+            'language' => 'required',
+            'quantity' => 'required',
+            'callid' => 'required',
+            // 'bookcover' => 'required|file|mimes:jpg,jpeg,bmp,png'
+        ]);
+        // return 'updating';
+        $book = Book::find($id);
+
+
+        $book->bookname = $req->bookname;
+        $book->authorname = $req->authorname;
+        $book->publisher = $req->publisher;
+        $book->category = $req->category;
+        $book->edition = $req->edition;
+        $book->language = $req->language;
+        $book->quantity = $req->quantity;
+        $book->callid = $req->callid;
+        // $book->bookcoverlink = $new_bookImageName;
+        $book->save();
+        
+
+
+
+        // redirect
+        return redirect('/')->with('success', 'Book updated successfully!');
     }
 
     /**
