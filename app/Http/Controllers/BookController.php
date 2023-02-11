@@ -129,4 +129,17 @@ class BookController extends Controller
 
         return redirect('/');
     }
+
+    function search(Request $req)
+    {
+
+        $books = Book::where('bookname', 'like', '%' . $req->input('query') . '%')
+            ->orWhere('authorname', 'like', '%' . $req->input('query') . '%')
+            ->orWhere('publisher', 'like', '%' . $req->input('query') . '%')
+            ->orWhere('category', 'like', '%' . $req->input('query') . '%')
+            // ->orWhere('created_at', 'like', '%' . $req->input('query') . '%')
+            ->get();
+
+        return view('frontend/home', ['books' => $books]);
+    }
 }

@@ -29,6 +29,7 @@ Route::get('/categories', function () {
 });
 Route::get('/', [BookController::class, 'index']);
 Route::get('/home', [BookController::class, 'index']);
+Route::get('/search',[BookController::class,'search']);
 
 
 //user
