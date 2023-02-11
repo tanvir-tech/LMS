@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class BookController extends Controller
 {
@@ -15,13 +16,13 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        if(empty($books->last())){
-            return 'No books';
-        }else{
+        if (empty($books->last())) {
+            return redirect('/messagepage')->with('error', 'No books');
+        } else {
             $books->last()->paginate(6);
         }
         // return $books;
-        return view('frontend/home',['books'=>$books]);
+        return view('frontend/home', ['books' => $books]);
     }
 
     /**
@@ -42,7 +43,7 @@ class BookController extends Controller
      */
     public function store(Request $req)
     {
-        
+
         $req->validate([
             'bookname' => 'required',
             'authorname' => 'required',
@@ -60,7 +61,7 @@ class BookController extends Controller
         $new_bookImageName = time() . '_' . $req->bookname . '_' . $req->authorname . '.' . $bookImageExt;
         $req->bookcover->move(public_path('gallery'), $new_bookImageName);
 
-        
+
         $book = new Book();
         $book->bookname = $req->bookname;
         $book->authorname = $req->authorname;
@@ -74,7 +75,7 @@ class BookController extends Controller
         $book->save();
 
 
-        return redirect('/admin/createBook')->with('success','Book created successfully!');
+        return redirect('/admin/createBook')->with('success', 'Book created successfully!');
     }
 
     /**
@@ -120,7 +121,11 @@ class BookController extends Controller
     public function destroy($book)
     {
         $book = Book::find($book);
+
+        File::delete(public_path("gallery/" . $book->bookcoverlink));
         $book->delete();
+
+
 
         return redirect('/');
     }

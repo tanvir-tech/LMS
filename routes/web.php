@@ -15,7 +15,9 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-
+Route::get('/messagepage', function () {
+    return view('includes/messagepage');
+});
 Route::get('/authors', function () {
     return view('frontend/authors');
 });
@@ -30,17 +32,15 @@ Route::get('/home', [BookController::class, 'index']);
 
 
 //user
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
-    
-    Route::get('/dashboard', [HomeController::class, 'redirectUser'])->name('dashboard');
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
-    
+    Route::get('/dashboard', [HomeController::class, 'redirectUser'])->name('dashboard');
 });
 
 
 //admin
-Route::prefix('admin')->middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:admin'])->group(function () {
-    
+Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:admin'])->group(function () {
+
     Route::get('/dashboard', function () {
         return view('backend/approveList');
     })->name('admin.dashboard');
@@ -53,9 +53,4 @@ Route::prefix('admin')->middleware(['auth:sanctum',config('jetstream.auth_sessio
     });
 
     Route::resource('/book', BookController::class);
-
 });
-
-
-
-

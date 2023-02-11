@@ -1,7 +1,6 @@
 @extends('includes/master')
 @section('content')
     <div class="container">
-
         @foreach ($books as $book)
             {{-- Book card start --}}
             <div class="card p-2">
