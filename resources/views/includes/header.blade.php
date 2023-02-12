@@ -10,7 +10,7 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Latest</a>
+                    <a class="nav-link" href="/latest">Latest</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/authors">Authors</a>

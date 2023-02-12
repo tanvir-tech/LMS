@@ -30,7 +30,7 @@ Route::get('/categories', function () {
 Route::get('/', [BookController::class, 'index']);
 Route::get('/home', [BookController::class, 'index']);
 Route::get('/search',[BookController::class,'search']);
-
+Route::get('/latest', [BookController::class, 'latestBooks']);
 
 //user
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {

@@ -176,4 +176,11 @@ class BookController extends Controller
 
         return view('frontend/home', ['books' => $books]);
     }
+
+    public function latestBooks()
+    {
+        $books = Book::latest()->paginate(6);
+        // return $books;
+        return view('frontend/home', ['books' => $books]);
+    }
 }
