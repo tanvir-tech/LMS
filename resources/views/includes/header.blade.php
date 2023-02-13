@@ -21,6 +21,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/categories">Categories</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/userrequest">Book_Request</a>
+                </li>
 
                 @if (Auth::guard('web')->check() && Auth::user()->hasRole('admin'))
                     <li class="nav-item">
@@ -36,30 +39,72 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0" action="/search" method="GET">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                    name="query">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
 
 
-            <div class="p-2">
+            {{-- <div class="p-2">
                 @if (Auth::guard('web')->check())
-                {{-- <a class="nav-link" href="/admin/dashboard">Dashboard</a> --}}
 
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <div class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();this.closest('form').submit(); " role="button">
-                            <i class="fas fa-sign-out-alt"></i>
-                            {{ __('Log Out') }}
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <div class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();this.closest('form').submit(); " role="button">
+                                <i class="fas fa-sign-out-alt"></i>
+                                {{ __('Log Out') }}
+                            </a>
+                        </div>
+                    </form>
+                @else
+                    <a class="nav-link" href="/login">Login</a>
+                @endif
+            </div> --}}
+
+
+
+            <div class="dropdown d-inline-block ">
+                @if (Auth::guard('web')->check())
+                    {{-- logged in  --}}
+                    <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="rounded-circle header-profile-user" src="{{ Auth::user()->profile_photo_url }}"
+                            alt="{{ Auth::user()->name }}">
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <!-- item-->
+                        <a class="dropdown-item" href="/user/profile"><i
+                                class="bx bx-user font-size-16 align-middle me-1"></i>
+                            <span key="t-profile">Profile</span></a>
+
+                        <a class="dropdown-item" href="/user/profile"><i
+                                class="bx bx-user font-size-16 align-middle me-1"></i>
+                            <span key="t-profile">Fine</span></a>
+
+                        <a class="dropdown-item" href="/user/profile"><i
+                                class="bx bx-user font-size-16 align-middle me-1"></i>
+                            <span key="t-profile">Profile</span></a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                            </form>
                         </a>
                     </div>
-                </form>
-            @else
-                <a class="nav-link" href="/login">Login</a>
-            @endif
+                @else
+                    {{-- logged out  --}}
+                    <a class="nav-link" href="/login">Login</a>
+                @endif
             </div>
-            
+
+
+
+
 
         </div>
     </nav>

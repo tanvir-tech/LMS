@@ -54,9 +54,7 @@
                                     </div>
                                 </div>
                             @elseif(Auth::guard('web')->check() && Auth::user()->hasRole('user'))
-                                <button class="btn btn-success">
-                                    Borrow
-                                </button>
+                                <a href="/book/{{ $book->id }}/borrow" class="text-white btn btn-success">Borrow</a>
                             @endif
                         </div>
                     </div>

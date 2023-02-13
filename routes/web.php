@@ -36,6 +36,7 @@ Route::get('/latest', [BookController::class, 'latestBooks']);
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
     Route::get('/dashboard', [HomeController::class, 'redirectUser'])->name('dashboard');
+    
 });
 
 
@@ -54,4 +55,11 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
     });
 
     Route::resource('/book', BookController::class);
+});
+
+
+
+// Request 
+Route::get('/userrequest', function () {
+    return view('frontend/userRequest');
 });
