@@ -80,13 +80,11 @@
                                 class="bx bx-user font-size-16 align-middle me-1"></i>
                             <span key="t-profile">Profile</span></a>
 
-                        <a class="dropdown-item" href="/user/profile"><i
-                                class="bx bx-user font-size-16 align-middle me-1"></i>
+                        <a class="dropdown-item" href="/user/fine">
                             <span key="t-profile">Fine</span></a>
 
-                        <a class="dropdown-item" href="/user/profile"><i
-                                class="bx bx-user font-size-16 align-middle me-1"></i>
-                            <span key="t-profile">Profile</span></a>
+                        <a class="dropdown-item" href="/user/requests">
+                            <span key="t-profile">Requests</span></a>
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-danger">
@@ -98,7 +96,7 @@
                     </div>
                 @else
                     {{-- logged out  --}}
-                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link p-2" href="/login">Login</a>
                 @endif
             </div>
 

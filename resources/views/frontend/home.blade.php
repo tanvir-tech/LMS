@@ -14,31 +14,19 @@
                             <h3>{{ $book['bookname'] }}</h3>
                             <h5>Edition : {{ $book['edition'] }}</h5>
                             <h6>Author : {{ $book['authorname'] }}</h6>
+                            <h6>Category: {{ $book['category'] }}</h6>
+                            <h6>Publisher: {{ $book['publisher'] }}</h6>
                         </div>
 
-                        <div class="card-body">
-
-                            <p>{{ $book['description'] }}</p>
-
-                        </div>
-
-                        <div class="card-footer">
-                            <h6>
-                                Category: {{ $book['category'] }}
-                                <br>
-                                Publisher: {{ $book['publisher'] }}
-                            </h6>
-                        </div>
+                        
 
                     </div>
                     <div class="col-md-3">
-
-                        <div class="">
-                            <h6>
-                                Available Quantity: {{ $book['quantity'] }}
-                                <br>
-                                Call ID: {{ $book['callid'] }}
-                            </h6>
+                        <div class="card-footer">
+                            <h6>Available Quantity: {{ $book['quantity'] }}</h6>
+                            <h6>Call ID: {{ $book['callid'] }}</h6>
+                       
+                            
 
                             @if (Auth::guard('web')->check() && Auth::user()->hasRole('admin'))
                                 <div class="row">
@@ -58,7 +46,10 @@
                             @endif
                         </div>
                     </div>
+                    
                 </div>
+
+                
             </div>
             {{-- Book card end --}}
         @endforeach

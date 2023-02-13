@@ -1,7 +1,7 @@
 @extends('includes/master')
 @section('content')
     <div class="container">
-        <div class="card">
+        <div class="card m-5">
             <div class="card-header d-flex justify-content-center">
                 <h1>
                     Add a new Book
