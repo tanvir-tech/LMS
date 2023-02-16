@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IssueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,9 @@ Route::get('/latest', [BookController::class, 'latestBooks']);
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
     Route::get('/dashboard', [HomeController::class, 'redirectUser'])->name('dashboard');
-    
+
+    //borrow by book id
+    Route::get('/book/{id}/borrow', [IssueController::class, 'create'])->name('borrow');
 });
 
 
