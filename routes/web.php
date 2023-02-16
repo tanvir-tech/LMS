@@ -59,8 +59,15 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
 
     Route::resource('/book', BookController::class);
 
-    //book issue request
-    Route::get('/issue/request', [IssueController::class, 'index'])->name('issue.request');
+    //book issue request-list for approval
+    Route::get('/approvelist', [IssueController::class, 'index'])->name('approve.request');
+    //approve 
+    // Route::get('/issue/approve', [IssueController::class, 'index'])->name('issue.request');
+    //deny 
+    // Route::get('/issue/deny', [IssueController::class, 'index'])->name('issue.request');
+
+    // issuelist
+    Route::get('/issuelist', [IssueController::class, 'issuelist'])->name('issuelist');
 });
 
 

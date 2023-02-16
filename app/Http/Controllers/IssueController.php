@@ -21,6 +21,16 @@ class IssueController extends Controller
             return redirect('/messagepage')->with('error', 'No book issue requests');
         } 
         // return $books;
+        return view('backend/approveList', ['issues' => $issues]);
+    }
+
+    public function issuelist()
+    {
+        $issues = Issue::where('approval', '=', 1)->get();
+        if (empty($issues)) {
+            return redirect('/messagepage')->with('error', 'No book issued');
+        } 
+        // return $issues;
         return view('backend/issueList', ['issues' => $issues]);
     }
 

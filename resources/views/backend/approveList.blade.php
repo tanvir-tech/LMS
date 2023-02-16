@@ -9,7 +9,7 @@
         <div class="card m-5">
             <div class="card-header d-flex justify-content-center p-3">
                 <h3>
-                    List of book issue requests
+                    Approval for book issue
                 </h3>
             </div>
             <div class="card-body">
@@ -17,58 +17,43 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Book</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Member</th>
-                            <th scope="col">From</th>
-                            <th scope="col">Till</th>
+                            <th scope="col">Book_ID</th>
+                            <th scope="col">User_ID</th>
+                            <th scope="col">Approval</th>
+                            <th scope="col">Date of Return</th>
                             <th scope="col" colspan="2">Option</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        {{-- <tr>
                             <th scope="row">1</th>
-                            <td>Live on the edge</td>
-                            <td>Writer</td>
-                            <td>Username</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>0</td>
                             <td>02-05-2023</td>
-                            <td>08-05-2023</td>
                             <td>
-                                <button class="btn btn-success">
-                                    Approve
+                                <button class="btn btn-warning">
+                                    Renew
                                 </button>
-                                <button class="btn btn-danger">
-                                    Deny
+                                <button class="btn btn-success">
+                                    Receive
                                 </button>
                             </td>
-                        </tr>
-                        {{-- @foreach ($schedules as $schedule)
+                        </tr> --}}
+                        @foreach ($issues as $issue)
                             <tr>
-                                <th scope="row">{{ $schedule['id'] }}</th>
-                                <td>{{ $schedule['faculty'] }}</td>
-                                <td>{{ $schedule['course'] }}</td>
-                                <td>{{ $schedule['room'] }}</td>
-                                <td>{{ $schedule['date'] }}</td>
-                                <td>{{ $schedule['start'] }}</td>
-                                <td>{{ $schedule['end'] }}</td>
+                                <th scope="row">{{ $issue['id'] }}</th>
+                                <td>{{ $issue['book_id'] }}</td>
+                                <td>{{ $issue['user_id'] }}</td>
+                                <td>{{ $issue['approval'] }}</td>
+                                <td>{{ $issue['date'] }}</td>
+                                
                                 <td>
-                                    <button class="btn btn-warning">
-                                        Edit
-                                    </button>
-
-                                </td>
-                                <td>
-                                    <form action="{{ route('schedule.destroy', ['schedule' => $schedule->id]) }}"
-                                        method="POST">
-                                        @csrf
-
-                                        @method('DELETE')
-
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                                    <a href="/admin/issue/{{ $issue->id }}/approve" class="text-white btn btn-success">Approve</a>
+                                    <a href="/admin/issue/{{ $issue->id }}/deny" class="text-white btn btn-danger">Deny</a>
                                 </td>
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>

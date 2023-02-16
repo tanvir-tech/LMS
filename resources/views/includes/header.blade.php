@@ -27,10 +27,10 @@
 
                 @if (Auth::guard('web')->check() && Auth::user()->hasRole('admin'))
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/dashboard">ApproveList</a>
+                        <a class="nav-link" href="/admin/approvelist">ApproveList</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/issue/request">IssueList</a>
+                        <a class="nav-link" href="/admin/issuelist">IssueList</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/createBook">Add Book</a>
