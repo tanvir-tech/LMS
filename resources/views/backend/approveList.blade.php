@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
 
-
+        @include('includes/flash-message')
 
 
 
@@ -46,7 +46,7 @@
                                 <td>{{ $issue['book_id'] }}</td>
                                 <td>{{ $issue['user_id'] }}</td>
                                 <td>{{ $issue['approval'] }}</td>
-                                <td>{{ $issue['date'] }}</td>
+                                <td>{{ $issue['date_of_return'] }}</td>
                                 
                                 <td>
                                     <a href="/admin/issue/{{ $issue->id }}/approve" class="text-white btn btn-success">Approve</a>

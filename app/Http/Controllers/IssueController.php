@@ -6,6 +6,7 @@ use App\Models\Issue;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class IssueController extends Controller
 {
@@ -22,6 +23,17 @@ class IssueController extends Controller
         } 
         // return $books;
         return view('backend/approveList', ['issues' => $issues]);
+    }
+
+    public function approvelist()
+    {
+
+        
+        $issues = Issue::where('approval', '=', 0)->get();
+        if (empty($issues)) {
+            return redirect('/messagepage')->with('error', 'No book issued');
+        } 
+        return view('backend/issueList', ['issues' => $issues]);
     }
 
     public function issuelist()
@@ -49,6 +61,27 @@ class IssueController extends Controller
 
         return redirect('/')->with('success', 'Book issue request sent successfully! Wait for admin approval.');
     }
+
+    public function approve($id)
+    {
+        $issue = Issue::find($id);
+        $book = Book::find($issue->book_id);
+        
+        // check if the book is available in quantity
+        if($book->quantity!=0){
+            $issue->approval = 1;
+            $issue->date_of_return = Carbon::now()->addDays(7);
+            $issue->save();
+        }
+        
+        return redirect('/approvelist')->with('success', 'Book issue request approved.');
+    }
+
+
+
+
+
+
 
     /**
      * Store a newly created resource in storage.
