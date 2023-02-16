@@ -33,7 +33,7 @@ class IssueController extends Controller
         if (empty($issues)) {
             return redirect('/messagepage')->with('error', 'No book issued');
         } 
-        return view('backend/issueList', ['issues' => $issues]);
+        return view('backend/approveList', ['issues' => $issues]);
     }
 
     public function issuelist()
@@ -67,16 +67,48 @@ class IssueController extends Controller
         $issue = Issue::find($id);
         $book = Book::find($issue->book_id);
         
-        // check if the book is available in quantity
+        // check-quantity
         if($book->quantity!=0){
             $issue->approval = 1;
             $issue->date_of_return = Carbon::now()->addDays(7);
+            //decrease book quantity
+            $book->quantity = $book->quantity-1;
+            $book->save();
             $issue->save();
         }
         
-        return redirect('/approvelist')->with('success', 'Book issue request approved.');
+        return redirect('/admin/approvelist')->with('success', 'Book issue request approved.');
     }
 
+    public function deny($id)
+    {
+        $issue = Issue::find($id);
+        $issue->delete();
+        
+        return redirect('/admin/approvelist')->with('error', 'Book issue request deleted.');
+    }
+
+    public function renew($id)
+    {
+        $issue = Issue::find($id);
+        $issue->approval = 1;
+        $issue->date_of_return = Carbon::now()->addDays(7);
+        $issue->save();
+
+        return redirect('/admin/issuelist')->with('warning', 'Book issue renewed.');
+    }
+
+    public function receive($id)
+    {
+        $issue = Issue::find($id);
+        $book = Book::find($issue->book_id);
+        //increase book quantity
+        $book->quantity = $book->quantity+1;
+        $book->save();
+        $issue->delete();
+        
+        return redirect('/admin/issuelist')->with('success', 'Book issue request deleted.');
+    }
 
 
 
