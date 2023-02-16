@@ -16,7 +16,12 @@ class IssueController extends Controller
      */
     public function index()
     {
-        //
+        $issues = Issue::all();
+        if (empty($issues)) {
+            return redirect('/messagepage')->with('error', 'No book issue requests');
+        } 
+        // return $books;
+        return view('backend/issueList', ['issues' => $issues]);
     }
 
     /**

@@ -30,7 +30,7 @@
                         <a class="nav-link" href="/admin/dashboard">ApproveList</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/issueList">IssueList</a>
+                        <a class="nav-link" href="/admin/issue/request">IssueList</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/createBook">Add Book</a>
