@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IssueController;
@@ -56,6 +57,9 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
     Route::get('/createBook', function () {
         return view('backend/createBook');
     });
+
+    Route::get('/createCat',  [CategoryController::class, 'index']);
+    Route::post('/createCat', [CategoryController::class, 'createCat']);
 
     Route::resource('/book', BookController::class);
 

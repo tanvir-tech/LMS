@@ -33,7 +33,10 @@
                         <a class="nav-link" href="/admin/issuelist">IssueList</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/createBook">Add Book</a>
+                        <a class="nav-link" href="/admin/createBook">Add_Book</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/createCat">Creat_Category</a>
                     </li>
                 @endif
 

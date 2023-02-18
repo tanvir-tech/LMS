@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
@@ -102,8 +103,9 @@ class BookController extends Controller
     {
         $book = Book::find($id);
 
+        $categories = Category::all();
         // show the edit form and pass the shark
-        return View::make('backend/editBook')->with('book', $book);
+        return View::make('backend/editBook', ['categories' => $categories])->with('book', $book);
     }
 
     /**
