@@ -26,7 +26,7 @@ Route::get('/authors', function () {
 Route::get('/publishers', function () {
     return view('frontend/publishers');
 });
-Route::get('/categories', function () {
+Route::get('/category/all', function () {
     return view('frontend/categories');
 });
 Route::get('/', [BookController::class, 'index']);

@@ -19,7 +19,31 @@
                     <a class="nav-link" href="/publishers">Publishers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/categories">Categories</a>
+
+                    @php
+                        use App\Models\Category;
+                        $categories = Category::where('parent_id', null)->get();
+                    @endphp
+
+                    <div class="dropdown p-1">
+                        <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Category
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item text-info" href="/category/all">All Categories</a>
+                            @foreach ($categories as $category)
+                                {{-- @php
+                                    $subcategories = Category::where('parent_id', $category->id)->get();
+                                @endphp --}}
+
+                                <a class="dropdown-item text-info" href="/category/{{ $category->id }}">{{ $category->name }}</a>
+
+                            @endforeach
+                        </div>
+                    </div>
+
+                    
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/userrequest">Book_Request</a>
