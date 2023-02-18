@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('bookname');
             $table->string('authorname');
             $table->string('publisher');
+            $table->integer('year');
             $table->string('category');
             $table->integer('edition');
             $table->string('language');

@@ -49,6 +49,7 @@ class BookController extends Controller
             'bookname' => 'required',
             'authorname' => 'required',
             'publisher' => 'required',
+            'year' => 'required',
             'category' => 'required',
             'edition' => 'required',
             'language' => 'required',
@@ -67,6 +68,7 @@ class BookController extends Controller
         $book->bookname = $req->bookname;
         $book->authorname = $req->authorname;
         $book->publisher = $req->publisher;
+        $book->year = $req->year;
         $book->category = $req->category;
         $book->edition = $req->edition;
         $book->language = $req->language;
@@ -117,6 +119,7 @@ class BookController extends Controller
             'bookname' => 'required',
             'authorname' => 'required',
             'publisher' => 'required',
+            'year' => 'required',
             'category' => 'required',
             'edition' => 'required',
             'language' => 'required',
@@ -131,6 +134,7 @@ class BookController extends Controller
         $book->bookname = $req->bookname;
         $book->authorname = $req->authorname;
         $book->publisher = $req->publisher;
+        $book->year = $req->year;
         $book->category = $req->category;
         $book->edition = $req->edition;
         $book->language = $req->language;
@@ -170,6 +174,7 @@ class BookController extends Controller
         $books = Book::where('bookname', 'like', '%' . $req->input('query') . '%')
             ->orWhere('authorname', 'like', '%' . $req->input('query') . '%')
             ->orWhere('publisher', 'like', '%' . $req->input('query') . '%')
+            ->orWhere('year', 'like', '%' . $req->input('query') . '%')
             ->orWhere('category', 'like', '%' . $req->input('query') . '%')
             // ->orWhere('created_at', 'like', '%' . $req->input('query') . '%')
             ->get();
@@ -179,7 +184,7 @@ class BookController extends Controller
 
     public function latestBooks()
     {
-        $books = Book::latest()->paginate(6);
+        $books = Book::orderBy('year', 'DESC')->paginate(6);
         // return $books;
         return view('frontend/home', ['books' => $books]);
     }

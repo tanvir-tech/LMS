@@ -35,6 +35,10 @@
                         <input class="form-control" name="publisher" value="{{$book->publisher}}">
                     </div>
                     <div class="col-md-6 p-4">
+                        <label class="form-label">Publish year</label>
+                        <input type="number" class="form-control" name="year" value="{{$book->year}}">
+                    </div>
+                    <div class="col-md-6 p-4">
                         <label class="form-label">Category</label>
                         <input class="form-control" name="category" value="{{$book->category}}">
                     </div>

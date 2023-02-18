@@ -35,8 +35,8 @@
                         <input class="form-control" name="publisher">
                     </div>
                     <div class="col-md-6 p-4">
-                        <label class="form-label">Category</label>
-                        <input class="form-control" name="category">
+                        <label class="form-label">Publish year</label>
+                        <input type="number" class="form-control" name="year">
                     </div>
                     <div class="col-md-6 p-4">
                         <label class="form-label">Edition</label>
@@ -45,6 +45,10 @@
                     <div class="col-md-6 p-4">
                         <label class="form-label">Language</label>
                         <input class="form-control" name="language">
+                    </div>
+                    <div class="col-md-6 p-4">
+                        <label class="form-label">Category</label>
+                        <input class="form-control" name="category">
                     </div>
                     <div class="col-md-6 p-4">
                         <label class="form-label">Quantity</label>
@@ -59,10 +63,13 @@
                         <label for="bookcover">Choose a book cover:</label>
                         <input type="file" id="bookcover" name="bookcover">
                     </div>
-
+                    <div class="row"></div>
+                    
                     <div class="col-md-4 p-4 m-2">
                         <button type="submit" class="btn btn-primary">Add Book</button>
                     </div>
+
+                    
                 </form>
             </div>
         </div>
