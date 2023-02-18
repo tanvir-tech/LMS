@@ -29,6 +29,8 @@ Route::get('/publishers', function () {
 Route::get('/category/all', function () {
     return view('frontend/categories');
 });
+Route::get('/category/{id}', [BookController::class, 'category']);
+
 Route::get('/', [BookController::class, 'index']);
 Route::get('/home', [BookController::class, 'index']);
 Route::get('/search',[BookController::class,'search']);

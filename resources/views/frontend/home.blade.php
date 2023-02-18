@@ -14,7 +14,7 @@
                             <h3>{{ $book['bookname'] }}</h3>
                             <h5>Edition : {{ $book['edition'] }}</h5>
                             <h6>Author : {{ $book['authorname'] }}</h6>
-                            <h6>Category: {{ $book['category'] }}</h6>
+                            <h6>Category: {{ $book['category']['name'] }}</h6>
                             <h6>Publisher: {{ $book['publisher'] }}</h6>
                             <h6>Year: {{ $book['year'] }}</h6>
                         </div>

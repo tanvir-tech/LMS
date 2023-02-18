@@ -51,7 +51,7 @@ class BookController extends Controller
             'authorname' => 'required',
             'publisher' => 'required',
             'year' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'edition' => 'required',
             'language' => 'required',
             'quantity' => 'required',
@@ -70,7 +70,7 @@ class BookController extends Controller
         $book->authorname = $req->authorname;
         $book->publisher = $req->publisher;
         $book->year = $req->year;
-        $book->category = $req->category;
+        $book->category_id = $req->category_id;
         $book->edition = $req->edition;
         $book->language = $req->language;
         $book->quantity = $req->quantity;
@@ -189,5 +189,13 @@ class BookController extends Controller
         $books = Book::orderBy('year', 'DESC')->paginate(6);
         // return $books;
         return view('frontend/home', ['books' => $books]);
+    }
+
+    function category($id)
+    {
+        $books = Book::where('category_id', '=',$id)->get();
+
+        return view('frontend/home', ['books' => $books]);
+
     }
 }

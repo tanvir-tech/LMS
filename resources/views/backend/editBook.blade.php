@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-6 p-4">
                         <label class="form-label">Category</label>
-                        <input class="form-control" name="category" value="{{$book->category}}">
+                        <input class="form-control" name="category" value="{{ $book->category['id'] }}">
                     </div>
                     <div class="col-md-6 p-4">
                         <label class="form-label">Edition</label>
