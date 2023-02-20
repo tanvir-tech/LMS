@@ -21,6 +21,8 @@
                             <th scope="col">User_ID</th>
                             <th scope="col">Approval</th>
                             <th scope="col">Date of Return</th>
+                            <th>Late</th>
+                            <th>Fine</th>
                             <th scope="col" colspan="2">Option</th>
                         </tr>
                     </thead>
@@ -40,6 +42,10 @@
                                 </button>
                             </td>
                         </tr> --}}
+                        @php
+                            use Carbon\Carbon;
+                            $today=Carbon::now();
+                        @endphp
                         @foreach ($issues as $issue)
                             <tr>
                                 <th scope="row">{{ $issue['id'] }}</th>
@@ -47,7 +53,14 @@
                                 <td>{{ $issue['user_id'] }}</td>
                                 <td>{{ $issue['approval'] }}</td>
                                 <td>{{ $issue['date_of_return'] }}</td>
-                                
+                                <td>
+                                    @php
+                                        $returnday = date_create($issue['date_of_return']);
+                                        $late=date_diff($returnday,$today);
+                                    @endphp
+                                    {{ $late->format('%d days');}}
+                                </td>
+                                <td></td>
                                 <td>
                                     <a href="/admin/issue/{{ $issue->id }}/renew" class="text-white btn btn-warning">Renew</a>
                                     <a href="/admin/issue/{{ $issue->id }}/receive" class="text-white btn btn-success">Receive</a>
