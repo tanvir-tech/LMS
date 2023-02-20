@@ -44,7 +44,7 @@
                         </tr> --}}
                         @php
                             use Carbon\Carbon;
-                            $today=Carbon::now();
+                            $today = Carbon::now();
                         @endphp
                         @foreach ($issues as $issue)
                             <tr>
@@ -59,26 +59,24 @@
                                         // $late=date_diff($returnday,$today)->format('%d days');
                                         // $late=date_diff($today,$returnday)->format('%R%a days');
                                         
-
-
                                         // $late = $today->diff($returnday)->days;
                                         $late = $today->diff($issue['date_of_return'])->format('%R%a days');
                                         
-
-                                        if (str_contains($late, '+')) { 
-                                            $lateint=0;
-                                        }else{
-                                            $lateint = intval($late);
+                                        if (str_contains($late, '+')) {
+                                            $lateint = 0;
+                                        } else {
+                                            $lateint = intval($today->diff($issue['date_of_return'])->format('%a'));
                                         }
-                                        
                                         
                                     @endphp
                                     {{ $lateint }} days
                                 </td>
                                 <td>{{ 10 * $lateint }} Taka</td>
                                 <td>
-                                    <a href="/admin/issue/{{ $issue->id }}/renew" class="text-white btn btn-warning">Renew</a>
-                                    <a href="/admin/issue/{{ $issue->id }}/receive" class="text-white btn btn-success">Receive</a>
+                                    <a href="/admin/issue/{{ $issue->id }}/renew"
+                                        class="text-white btn btn-warning">Renew</a>
+                                    <a href="/admin/issue/{{ $issue->id }}/receive"
+                                        class="text-white btn btn-success">Receive</a>
                                 </td>
                             </tr>
                         @endforeach
