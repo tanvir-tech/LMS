@@ -55,12 +55,27 @@
                                 <td>{{ $issue['date_of_return'] }}</td>
                                 <td>
                                     @php
-                                        $returnday = date_create($issue['date_of_return']);
-                                        $late=date_diff($returnday,$today);
+                                        // $returnday = date_create($issue['date_of_return']);
+                                        // $late=date_diff($returnday,$today)->format('%d days');
+                                        // $late=date_diff($today,$returnday)->format('%R%a days');
+                                        
+
+
+                                        // $late = $today->diff($returnday)->days;
+                                        $late = $today->diff($issue['date_of_return'])->format('%R%a days');
+                                        
+
+                                        if (str_contains($late, '+')) { 
+                                            $lateint=0;
+                                        }else{
+                                            $lateint = intval($late);
+                                        }
+                                        
+                                        
                                     @endphp
-                                    {{ $late->format('%d days');}}
+                                    {{ $lateint }} days
                                 </td>
-                                <td></td>
+                                <td>{{ 10 * $lateint }} Taka</td>
                                 <td>
                                     <a href="/admin/issue/{{ $issue->id }}/renew" class="text-white btn btn-warning">Renew</a>
                                     <a href="/admin/issue/{{ $issue->id }}/receive" class="text-white btn btn-success">Receive</a>
