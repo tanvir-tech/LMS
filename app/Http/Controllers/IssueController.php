@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Issue;
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Notifications\ReturnReminder;
+use Illuminate\Support\Facades\Notification;
 
 class IssueController extends Controller
 {
@@ -70,7 +73,7 @@ class IssueController extends Controller
         // check-quantity
         if($book->quantity!=0){
             $issue->approval = 1;
-            $issue->date_of_return = Carbon::now()->addDays(7);
+            $issue->date_of_return = Carbon::now()->addDays(7)->toDateTimeString();
             //decrease book quantity
             $book->quantity = $book->quantity-1;
             $book->save();
@@ -110,7 +113,29 @@ class IssueController extends Controller
         return redirect('/admin/issuelist')->with('success', 'Book issue request deleted.');
     }
 
+    public function remindUser($user_id)
+    {
+        $user = User::find($user_id);
+        // search users issues 
+        $issues = Issue::where('user_id', '=', $user_id)->get();
+        if (empty($issues)) {
+            return true;
+        } 
+        return view('backend/issueList', ['issues' => $issues]);
+    }
 
+
+    public function remind($issue_id)
+    {
+        $issue = Issue::find($issue_id);
+        // search users issues 
+        $user = User::where('id', '=', $issue->user_id)->first();
+        
+        // mail user to return the specific book 
+        // $user->notify(new ReturnReminder());
+        // return $user->name;
+        Notification::send($user, new ReturnReminder($user->name,$issue->id));
+    }
 
 
 
@@ -170,4 +195,6 @@ class IssueController extends Controller
     {
         //
     }
+
+
 }

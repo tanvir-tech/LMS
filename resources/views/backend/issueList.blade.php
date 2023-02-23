@@ -77,6 +77,9 @@
                                         class="text-white btn btn-warning">Renew</a>
                                     <a href="/admin/issue/{{ $issue->id }}/receive"
                                         class="text-white btn btn-success">Receive</a>
+                                    
+                                        <a href="/admin/remind/issue/{{ $issue->user_id }}"
+                                            class="text-white btn btn-danger">Remind</a>
                                 </td>
                             </tr>
                         @endforeach

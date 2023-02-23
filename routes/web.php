@@ -78,6 +78,10 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
     Route::get('/issue/{id}/renew', [IssueController::class, 'renew']);
     // receive
     Route::get('/issue/{id}/receive', [IssueController::class, 'receive']);
+    // Remind by user-id  
+    Route::get('/remind/user/{id}', [IssueController::class, 'remindUser']);
+    // Remind by issue-id  
+    Route::get('/remind/issue/{id}', [IssueController::class, 'remind']);
 
 });
 
@@ -87,3 +91,6 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
 Route::get('/userrequest', function () {
     return view('frontend/userRequest');
 });
+
+
+

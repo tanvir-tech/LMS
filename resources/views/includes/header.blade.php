@@ -37,20 +37,20 @@
                                     $subcategories = Category::where('parent_id', $category->id)->get();
                                 @endphp --}}
 
-                                <a class="dropdown-item text-info" href="/category/{{ $category->id }}">{{ $category->name }}</a>
-
+                                <a class="dropdown-item text-info"
+                                    href="/category/{{ $category->id }}">{{ $category->name }}</a>
                             @endforeach
                         </div>
                     </div>
 
-                    
+
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/userrequest">Book_Request</a>
                 </li>
 
                 @if (Auth::guard('web')->check() && Auth::user()->hasRole('admin'))
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="/admin/approvelist">ApproveList</a>
                     </li>
                     <li class="nav-item">
@@ -61,7 +61,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/createCat">Creat_Category</a>
-                    </li>
+                    </li> --}}
                 @endif
 
             </ul>
@@ -101,17 +101,41 @@
                             alt="{{ Auth::user()->name }}">
                     </button>
 
+
+
+
+
+
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <a class="dropdown-item" href="/user/profile"><i
                                 class="bx bx-user font-size-16 align-middle me-1"></i>
                             <span key="t-profile">Profile</span></a>
 
-                        <a class="dropdown-item" href="/user/fine">
-                            <span key="t-profile">Fine</span></a>
 
-                        <a class="dropdown-item" href="/user/requests">
-                            <span key="t-profile">Requests</span></a>
+
+                        @if (Auth::guard('web')->check() && Auth::user()->hasRole('admin'))
+
+                            <a class="dropdown-item" href="/admin/approvelist">
+                                <span key="t-profile">ApproveList</span></a>
+
+                            <a class="dropdown-item" href="/admin/issuelist">
+                                <span key="t-profile">IssueList</span></a>
+
+
+
+                            <a class="dropdown-item" href="/admin/createBook">
+                                <span key="t-profile">Add_Book</span></a>
+
+                            <a class="dropdown-item" href="/admin/createCat">
+                                <span key="t-profile">Creat_Category</span></a>
+                        @else
+                            <a class="dropdown-item" href="/user/fine">
+                                <span key="t-profile">My Fine</span></a>
+
+                            <a class="dropdown-item" href="/user/requests">
+                                <span key="t-profile">My Requests</span></a>
+                        @endif
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-danger">
