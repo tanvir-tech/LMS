@@ -130,11 +130,21 @@ class IssueController extends Controller
         $issue = Issue::find($issue_id);
         // search users issues 
         $user = User::where('id', '=', $issue->user_id)->first();
+        $book = Book::where('id', '=', $issue->book_id)->first();
         
+
+        $today = Carbon::now();
+
+        $late = $today->diff($issue['date_of_return'])->format('%R%a days');
+        if (str_contains($late, '+')) {
+            $lateint = 0;
+        } else {
+            $lateint = intval($today->diff($issue['date_of_return'])->format('%a'));
+        }
+
+
         // mail user to return the specific book 
-        // $user->notify(new ReturnReminder());
-        // return $user->name;
-        Notification::send($user, new ReturnReminder($user->name,$issue->id));
+        Notification::send($user, new ReturnReminder($user->name,$book->bookname,$lateint));
     }
 
 

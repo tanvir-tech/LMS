@@ -14,11 +14,13 @@ class ReturnReminder extends Notification
 
     public $username;
     public $bookname;
+    public $lateint;
 
-    public function __construct($username,$bookname)
+    public function __construct($username,$bookname,$lateint)
     {
         $this->username = $username;
         $this->bookname = $bookname;
+        $this->lateint = $lateint;
     }
 
 
@@ -31,7 +33,7 @@ class ReturnReminder extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line($this->username.', we are observing that it has been a long time you didn"t return the book'.$this->bookname.'. You are fined for this disobidience.')
+                    ->line($this->username.', we are observing that it has been a long time you didn"t return the book'.$this->bookname.'. You are fined '.$this->lateint.'Taka for this disobidience.')
                     // ->action('Notification Action', url('/'))
                     ->line('Please return the book and contact with the librarian.');
     }
