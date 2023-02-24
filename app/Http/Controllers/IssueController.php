@@ -144,7 +144,10 @@ class IssueController extends Controller
 
 
         // mail user to return the specific book 
+        // $user->notify(new ReturnReminder($user->name,$book->bookname,$lateint))->delay(Carbon::now()->addSeconds(2));
         Notification::send($user, new ReturnReminder($user->name,$book->bookname,$lateint));
+
+        return redirect('/admin/issuelist')->with('success', 'Reminder email sent.');
     }
 
 

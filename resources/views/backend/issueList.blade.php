@@ -78,7 +78,7 @@
                                     <a href="/admin/issue/{{ $issue->id }}/receive"
                                         class="text-white btn btn-success">Receive</a>
                                     
-                                        <a href="/admin/remind/issue/{{ $issue->user_id }}"
+                                        <a href="/admin/remind/issue/{{ $issue->id }}"
                                             class="text-white btn btn-danger">Remind</a>
                                 </td>
                             </tr>
