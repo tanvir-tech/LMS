@@ -35,7 +35,7 @@ class ReturnReminder extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line($this->username.', we are observing that it has been a long time you didn"t return the book'.$this->bookname.'. You are fined '.$this->latefee.'Taka for this disobidience.')
+                    ->line($this->username.', we are observing that it has been a long time you didn"t return the book ['.$this->bookname.']. You are fined - '.$this->latefee.' Taka for this disobidience.')
                     // ->action('Notification Action', url('/'))
                     ->line('Please return the book and contact with the librarian.');
     }

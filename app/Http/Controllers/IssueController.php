@@ -138,16 +138,49 @@ class IssueController extends Controller
         $late = $today->diff($issue['date_of_return'])->format('%R%a days');
         if (str_contains($late, '+')) {
             $lateint = 0;
+
+            return redirect('/admin/issuelist')->with('error', 'The selected user has no fine.');
         } else {
             $lateint = intval($today->diff($issue['date_of_return'])->format('%a'));
+
+            Notification::send($user, new ReturnReminder($user->name,$book->bookname,$lateint));
+            return redirect('/admin/issuelist')->with('success', 'Reminder email sent.');
         }
 
 
         // mail user to return the specific book 
         // $user->notify(new ReturnReminder($user->name,$book->bookname,$lateint))->delay(Carbon::now()->addSeconds(2));
-        Notification::send($user, new ReturnReminder($user->name,$book->bookname,$lateint));
+        
+    }
 
-        return redirect('/admin/issuelist')->with('success', 'Reminder email sent.');
+    public function remindAll()
+    {
+        $today = Carbon::now();
+                // ->subDay(7);
+        // find fineable issues
+        $issues = Issue::where('date_of_return','<',$today)->get();
+        // return $issues; 
+        // loop-call remind function with issue id
+        foreach($issues as $issue){
+            $issue = Issue::find($issue->id);
+            $user = User::where('id', '=', $issue->user_id)->first();
+            $book = Book::where('id', '=', $issue->book_id)->first();
+
+            $late = $today->diff($issue['date_of_return'])->format('%R%a days');
+            if (str_contains($late, '+')) {
+                $lateint = 0;
+            } else {
+                $lateint = intval($today->diff($issue['date_of_return'])->format('%a'));
+                Notification::send($user, new ReturnReminder($user->name,$book->bookname,$lateint));
+            }
+            return redirect('/admin/issuelist')->with('success', 'Reminder email sent to all fined users.');
+
+
+
+
+        }
+
+
     }
 
 

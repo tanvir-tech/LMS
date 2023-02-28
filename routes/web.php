@@ -82,7 +82,8 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
     Route::get('/remind/user/{id}', [IssueController::class, 'remindUser']);
     // Remind by issue-id  
     Route::get('/remind/issue/{id}', [IssueController::class, 'remind']);
-
+    // remindAll
+    Route::get('/remind/all/issue', [IssueController::class, 'remindAll']);
 });
 
 

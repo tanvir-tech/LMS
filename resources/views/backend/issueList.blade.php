@@ -1,16 +1,17 @@
 @extends('includes/master')
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
 
 
         @include('includes/flash-message')
 
 
         <div class="card m-5">
-            <div class="card-header d-flex justify-content-center p-3">
-                <h3>
+            <div class="card-header p-3">
+                <h3 class=" d-flex justify-content-center ">
                     List of book issued
                 </h3>
+                <a href="/admin/remind/all/issue" class="text-white btn btn-primary d-flex justify-content-center">Remind all</a>
             </div>
             <div class="card-body">
                 <table class="table table-hover">
@@ -77,9 +78,8 @@
                                         class="text-white btn btn-warning">Renew</a>
                                     <a href="/admin/issue/{{ $issue->id }}/receive"
                                         class="text-white btn btn-success">Receive</a>
-                                    
-                                        <a href="/admin/remind/issue/{{ $issue->id }}"
-                                            class="text-white btn btn-danger">Remind</a>
+                                    <a href="/admin/remind/issue/{{ $issue->id }}"
+                                        class="text-white btn btn-danger">Remind</a>
                                 </td>
                             </tr>
                         @endforeach
