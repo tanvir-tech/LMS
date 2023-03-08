@@ -50,8 +50,8 @@
                         @foreach ($issues as $issue)
                             <tr>
                                 <th scope="row">{{ $issue['id'] }}</th>
-                                <td>{{ $issue['book_id'] }}</td>
-                                <td>{{ $issue['user_id'] }}</td>
+                                <td>{{ $issue['book_id'] }}_{{ $issue['book']['bookname'] }}</td>
+                                <td>{{ $issue['user_id'] }}_{{ $issue['user']['name'] }}</td>
                                 <td>{{ $issue['approval'] }}</td>
                                 <td>{{ $issue['date_of_return'] }}</td>
                                 <td>

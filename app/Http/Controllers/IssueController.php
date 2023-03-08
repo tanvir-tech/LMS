@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Issue;
 use App\Models\Book;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use Carbon\Carbon;
 use App\Notifications\ReturnReminder;
 use Illuminate\Support\Facades\Notification;
@@ -30,8 +32,6 @@ class IssueController extends Controller
 
     public function approvelist()
     {
-
-        
         $issues = Issue::where('approval', '=', 0)->get();
         if (empty($issues)) {
             return redirect('/messagepage')->with('error', 'No book issued');
@@ -129,20 +129,18 @@ class IssueController extends Controller
     {
         $issue = Issue::find($issue_id);
         // search users issues 
-        $user = User::where('id', '=', $issue->user_id)->first();
-        $book = Book::where('id', '=', $issue->book_id)->first();
-        
+        $user = $issue->user;
+        $book = $issue->book;
 
         $today = Carbon::now();
 
         $late = $today->diff($issue['date_of_return'])->format('%R%a days');
-        if (str_contains($late, '+')) {
+        $lateint = intval($today->diff($issue['date_of_return'])->format('%a'));
+
+        if (str_contains($late, '+') || $lateint<7) {
             $lateint = 0;
-
             return redirect('/admin/issuelist')->with('error', 'The selected user has no fine.');
-        } else {
-            $lateint = intval($today->diff($issue['date_of_return'])->format('%a'));
-
+        } else{
             Notification::send($user, new ReturnReminder($user->name,$book->bookname,$lateint));
             return redirect('/admin/issuelist')->with('success', 'Reminder email sent.');
         }
@@ -159,26 +157,28 @@ class IssueController extends Controller
                 // ->subDay(7);
         // find fineable issues
         $issues = Issue::where('date_of_return','<',$today)->get();
-        // return $issues; 
         // loop-call remind function with issue id
         foreach($issues as $issue){
             $issue = Issue::find($issue->id);
-            $user = User::where('id', '=', $issue->user_id)->first();
-            $book = Book::where('id', '=', $issue->book_id)->first();
+            $user = $issue->user;
+            $book = $issue->book;
 
             $late = $today->diff($issue['date_of_return'])->format('%R%a days');
-            if (str_contains($late, '+')) {
+            $lateint = intval($today->diff($issue['date_of_return'])->format('%a'));
+
+            if (str_contains($late, '+') || $lateint<7) {
                 $lateint = 0;
             } else {
-                $lateint = intval($today->diff($issue['date_of_return'])->format('%a'));
                 Notification::send($user, new ReturnReminder($user->name,$book->bookname,$lateint));
             }
-            return redirect('/admin/issuelist')->with('success', 'Reminder email sent to all fined users.');
+
 
 
 
 
         }
+
+        return redirect('/admin/issuelist')->with('success', 'Reminder email sent to all fined users.');
 
 
     }

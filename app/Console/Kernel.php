@@ -5,6 +5,8 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+use App\Console\Commands\AutoReminder;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -18,6 +20,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('queue:work')->everyMinute();
         // ->evenInMaintenanceMode();
+        $schedule->command('autoreminder:checkfine')->everyDay();
+        
     }
 
     /**
@@ -30,5 +34,7 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
+
+        
     }
 }
