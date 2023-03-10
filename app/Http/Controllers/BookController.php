@@ -21,10 +21,18 @@ class BookController extends Controller
         if (empty($books->last())) {
             return redirect('/messagepage')->with('error', 'No books');
         } else {
-            $books->last()->paginate(6);
+            $books->last()->paginate(18);
         }
         // return $books;
         return view('frontend/home', ['books' => $books]);
+    }
+
+    public function detail($id)
+    {
+        $book = Book::find($id);
+        
+        // return $book;
+        return view('frontend/detail', ['book' => $book]);
     }
 
     /**
@@ -177,7 +185,6 @@ class BookController extends Controller
             ->orWhere('authorname', 'like', '%' . $req->input('query') . '%')
             ->orWhere('publisher', 'like', '%' . $req->input('query') . '%')
             ->orWhere('year', 'like', '%' . $req->input('query') . '%')
-            ->orWhere('category', 'like', '%' . $req->input('query') . '%')
             // ->orWhere('created_at', 'like', '%' . $req->input('query') . '%')
             ->get();
 

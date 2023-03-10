@@ -33,6 +33,7 @@ Route::get('/category/{id}', [BookController::class, 'category']);
 
 Route::get('/', [BookController::class, 'index']);
 Route::get('/home', [BookController::class, 'index']);
+Route::get('/detail/{id}', [BookController::class, 'detail']);
 Route::get('/search',[BookController::class,'search']);
 Route::get('/latest', [BookController::class, 'latestBooks']);
 
