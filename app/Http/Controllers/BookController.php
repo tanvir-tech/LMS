@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 
+use Session;
+
 class BookController extends Controller
 {
     /**
@@ -26,6 +28,33 @@ class BookController extends Controller
         // return $books;
         return view('frontend/home', ['books' => $books]);
     }
+
+    public function latestBooks()
+    {
+        $books = Book::orderBy('year', 'DESC')->get();
+        if (empty($books->last())) {
+            return redirect('/messagepage')->with('error', 'No books');
+        } else {
+            $books->last()->paginate(18);
+        }
+        // return $books;
+        return view('frontend/yearfilter', ['books' => $books]);
+    }
+
+    public function yearfilter(Request $req)
+    {
+        $books = Book::whereBetween('year', [$req->input('early'), $req->input('late')])->get();
+
+        if (empty($books->last())) {
+            // Session::flash('error', 'No books'); 
+            return view('frontend/yearfilter', ['books' => $books]);
+        } else {
+            $books->last()->paginate(18);
+        }
+        // return $books;
+        return view('frontend/yearfilter', ['books' => $books]);
+    }
+
 
     public function detail($id)
     {
@@ -191,12 +220,7 @@ class BookController extends Controller
         return view('frontend/home', ['books' => $books]);
     }
 
-    public function latestBooks()
-    {
-        $books = Book::orderBy('year', 'DESC')->paginate(6);
-        // return $books;
-        return view('frontend/home', ['books' => $books]);
-    }
+
 
     function category($id)
     {

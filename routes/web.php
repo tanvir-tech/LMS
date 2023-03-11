@@ -37,6 +37,8 @@ Route::get('/detail/{id}', [BookController::class, 'detail']);
 Route::get('/search',[BookController::class,'search']);
 Route::get('/latest', [BookController::class, 'latestBooks']);
 
+Route::post('/yearfilter', [BookController::class, 'yearfilter']);
+
 //user
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 

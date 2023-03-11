@@ -33,7 +33,7 @@
                         <label class="form-label">Parent category name</label>
                         <select class="form-select" aria-label="Default select example" name="parent_id">
 
-                            <option selected>Not sub-category</option>
+                            <option selected value=0>Not sub-category</option>
 
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>

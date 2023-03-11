@@ -12,7 +12,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::where('parent_id', null)->get();
+        $categories = Category::where('parent_id', 0)->get();
         
         return view('backend/createCat', ['categories' => $categories]);
     }
@@ -24,7 +24,8 @@ class CategoryController extends Controller
             'name' => 'required'
         ]);
 
-    
+       
+
         $category = new Category();
         $category->name = $req->name;
         $category->parent_id = $req->parent_id;
