@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IssueController;
+use App\Http\Controllers\AuthorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,9 @@ use App\Http\Controllers\IssueController;
 Route::get('/messagepage', function () {
     return view('includes/messagepage');
 });
-Route::get('/authors', function () {
-    return view('frontend/authors');
-});
+Route::get('/authors', [AuthorController::class, 'index']);
+Route::get('/author/{authorname}', [AuthorController::class, 'authorbooks']);
+
 Route::get('/publishers', function () {
     return view('frontend/publishers');
 });

@@ -22,7 +22,7 @@
 
                     @php
                         use App\Models\Category;
-                        $categories = Category::where('parent_id', null)->get();
+                        $categories = Category::where('parent_id', 0)->get();
                     @endphp
 
                     <div class="dropdown p-1">
