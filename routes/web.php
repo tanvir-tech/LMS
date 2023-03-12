@@ -24,9 +24,10 @@ Route::get('/messagepage', function () {
 Route::get('/authors', [AuthorController::class, 'index']);
 Route::get('/author/{authorname}', [AuthorController::class, 'authorbooks']);
 
-Route::get('/publishers', function () {
-    return view('frontend/publishers');
-});
+Route::get('/publishers', [AuthorController::class, 'publisherlist']);
+Route::get('/publisher/{publisher}', [AuthorController::class, 'publisherbooks']);
+
+
 Route::get('/category/all', function () {
     return view('frontend/categories');
 });
