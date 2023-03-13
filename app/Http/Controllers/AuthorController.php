@@ -35,6 +35,9 @@ class AuthorController extends Controller
         return view('frontend/home', ['books' => $books]);
     }
 
+
+
+    
     public function publisherlist()
     {
         $publishers = Book::select('publisher')->get();
