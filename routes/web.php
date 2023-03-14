@@ -7,16 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\AuthorController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/messagepage', function () {
     return view('includes/messagepage');
@@ -63,6 +54,10 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
     });
     Route::get('/createBook', function () {
         return view('backend/createBook');
+    });
+
+    Route::get('/requestlist', function () {
+        return view('backend/requestlist');
     });
 
     Route::get('/createCat',  [CategoryController::class, 'index']);

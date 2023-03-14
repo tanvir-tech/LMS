@@ -116,19 +116,9 @@
 
                         @if (Auth::guard('web')->check() && Auth::user()->hasRole('admin'))
 
-                            <a class="dropdown-item" href="/admin/approvelist">
-                                <span key="t-profile">ApproveList</span></a>
 
-                            <a class="dropdown-item" href="/admin/issuelist">
-                                <span key="t-profile">IssueList</span></a>
-
-
-
-                            <a class="dropdown-item" href="/admin/createBook">
-                                <span key="t-profile">Add_Book</span></a>
-
-                            <a class="dropdown-item" href="/admin/createCat">
-                                <span key="t-profile">Creat_Category</span></a>
+                            <a class="dropdown-item" href="/admin/dashboard">
+                                <span key="t-profile">Admin_Dashboard</span></a>
                         @else
                             <a class="dropdown-item" href="/user/fine">
                                 <span key="t-profile">My Fine</span></a>

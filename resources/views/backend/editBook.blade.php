@@ -1,5 +1,5 @@
-@extends('includes/master')
-@section('content')
+@extends('admin/dashboard')
+@section('admin-content')
     <div class="container">
         <div class="card m-5">
             <div class="card-header d-flex justify-content-center">

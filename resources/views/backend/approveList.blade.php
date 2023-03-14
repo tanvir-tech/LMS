@@ -1,5 +1,5 @@
-@extends('includes/master')
-@section('content')
+@extends('admin/dashboard')
+@section('admin-content')
     <div class="container">
 
         @include('includes/flash-message')

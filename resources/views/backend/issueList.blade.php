@@ -1,5 +1,5 @@
-@extends('includes/master')
-@section('content')
+@extends('admin/dashboard')
+@section('admin-content')
     <div class="container mt-5">
 
 
@@ -50,7 +50,7 @@
                         @foreach ($issues as $issue)
                             <tr>
                                 <th scope="row">{{ $issue['id'] }}</th>
-                                <td>{{ $issue['book_id'] }}_{{ $issue['book']['bookname'] }}</td>
+                                <td>{{ $issue['book_id'] }}_{{ $issue['book']? $issue['book']['bookname'] : 'BOOK DELETED' }}</td>
                                 <td>{{ $issue['user_id'] }}_{{ $issue['user']['name'] }}</td>
                                 <td>{{ $issue['approval'] }}</td>
                                 <td>{{ $issue['date_of_return'] }}</td>

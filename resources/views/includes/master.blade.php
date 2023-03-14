@@ -20,7 +20,7 @@
 
 
 {{-- {{ asset('js/app.js') }} --}}
-<body style="background-image: url('{{ asset("images/bg-lms.jpg") }}'); background-size: contain;">
+<body data-sidebar='dark' style="background-image: url('{{ asset("images/bg-lms.jpg") }}'); background-size: contain;">
 
 
     <div >
@@ -35,7 +35,7 @@
 
 
 
-        {{View::make('includes/footer')}}
+        {{-- {{View::make('includes/footer')}} --}}
 
 
 

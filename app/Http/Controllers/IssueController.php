@@ -45,6 +45,7 @@ class IssueController extends Controller
         if (empty($issues)) {
             return redirect('/messagepage')->with('error', 'No book issued');
         } 
+        
         // return $issues;
         return view('backend/issueList', ['issues' => $issues]);
     }
