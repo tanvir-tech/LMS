@@ -7,7 +7,7 @@
             @foreach ($books as $book)
                 {{-- Book card start --}}
 
-                <div class="card bg-secondary col-md-3 p-2 m-2">
+                <div class="card bg-secondary col-md-3 ">
                     <a href="/detail/{{ $book['id'] }}">
                         <div class="card-body">
                             <img class="bookimg" src="{{ asset('gallery/' . $book['bookcoverlink']) }}" alt="Book photo">

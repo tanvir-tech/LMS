@@ -159,7 +159,7 @@ class BookController extends Controller
             'authorname' => 'required',
             'publisher' => 'required',
             'year' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'edition' => 'required',
             'language' => 'required',
             'quantity' => 'required',
@@ -174,7 +174,7 @@ class BookController extends Controller
         $book->authorname = $req->authorname;
         $book->publisher = $req->publisher;
         $book->year = $req->year;
-        $book->category = $req->category;
+        $book->category_id = $req->category_id;
         $book->edition = $req->edition;
         $book->language = $req->language;
         $book->quantity = $req->quantity;
@@ -226,6 +226,15 @@ class BookController extends Controller
     {
         $books = Book::where('category_id', '=',$id)->get();
 
+        $subcategories = Category::where('parent_id', '=',$id)->get();
+
+        foreach($subcategories as $subcategory){
+            $subbooks = Book::where('category_id', '=',$subcategory->id)->get();
+            $books = $books->merge($subbooks);
+        }
+
+        
+        
         return view('frontend/home', ['books' => $books]);
 
     }

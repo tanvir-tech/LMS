@@ -40,7 +40,20 @@
                     </div>
                     <div class="col-md-6 p-4">
                         <label class="form-label">Category</label>
-                        <input class="form-control" name="category" value="{{ $book->category['id'] }}">
+                        <select class="form-select" aria-label="Default select example" name="category_id">
+                            <option value="{{ $book->category->id }}">{{ $book->category->name }}</option>
+
+                            @php
+                                use App\Models\Category;
+                                $categories = Category::all()->except($book->category->id);
+                                // $categories = Category::all();
+                            @endphp
+
+
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-6 p-4">
                         <label class="form-label">Edition</label>

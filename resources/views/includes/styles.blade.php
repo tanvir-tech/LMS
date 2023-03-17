@@ -4,7 +4,7 @@
 
 
 <!-- App favicon -->
-<link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
+<link rel="shortcut icon" href="{{ asset('gallery')}}/lms-logo.png">
 
 
 <!-- <link rel="stylesheet" href="{{ asset('css/flip.css') }}"> -->
