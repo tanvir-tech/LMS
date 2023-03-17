@@ -9,6 +9,10 @@ use App\Console\Commands\AutoReminder;
 
 class Kernel extends ConsoleKernel
 {
+
+    protected $commands = [
+        Commands\AutoReminder::class,
+    ];
     /**
      * Define the application's command schedule.
      *
@@ -18,9 +22,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('autoreminder:checkfine')->everyMinute();
         $schedule->command('queue:work')->everyMinute();
         // ->evenInMaintenanceMode();
-        $schedule->command('autoreminder:checkfine')->everyDay();
+
+        // $schedule->command('autoreminder:checkfine')->daily();
+        
         
     }
 

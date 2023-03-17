@@ -138,7 +138,7 @@ class IssueController extends Controller
         $late = $today->diff($issue['date_of_return'])->format('%R%a days');
         $lateint = intval($today->diff($issue['date_of_return'])->format('%a'));
 
-        if (str_contains($late, '+') || $lateint<7) {
+        if (str_contains($late, '+')) {
             $lateint = 0;
             return redirect('/admin/issuelist')->with('error', 'The selected user has no fine.');
         } else{

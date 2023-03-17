@@ -51,7 +51,7 @@ class AutoReminder extends Command
             $late = $today->diff($issue['date_of_return'])->format('%R%a days');
             $lateint = intval($today->diff($issue['date_of_return'])->format('%a'));
 
-            if (str_contains($late, '+') || $lateint<7) {
+            if (str_contains($late, '+')) {
                 $lateint = 0;
             } else {
                 Notification::send($user, new ReturnReminder($user->name,$book->bookname,$lateint));
