@@ -11,7 +11,7 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        $authors = Book::select('authorname')->get();
+        $authors = Book::select('authorname')->distinct()->get();
 
         if (empty($authors->last())) {
             return redirect('/messagepage')->with('error', 'No authors');
@@ -40,7 +40,7 @@ class AuthorController extends Controller
     
     public function publisherlist()
     {
-        $publishers = Book::select('publisher')->get();
+        $publishers = Book::select('publisher')->distinct()->get();
 
         if (empty($publishers->last())) {
             return redirect('/messagepage')->with('error', 'No authors');

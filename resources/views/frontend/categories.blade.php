@@ -5,7 +5,7 @@
 
         @php
             use App\Models\Category;
-            $categories = Category::where('parent_id', null)->get();
+            $categories = Category::where('parent_id', 0)->get();
         @endphp
         @foreach ($categories as $category)
             <section style="background-color: rgba(238, 238, 238, 0.664);" class="m-5">

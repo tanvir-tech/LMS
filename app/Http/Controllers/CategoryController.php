@@ -18,6 +18,14 @@ class CategoryController extends Controller
     }
 
 
+    public function all()
+    {
+        $categories = Category::all();
+        // return $categories;
+        return view('frontend/categories', ['categories' => $categories]);
+    }
+
+
 
     function createCat(Request $req){
         $req->validate([

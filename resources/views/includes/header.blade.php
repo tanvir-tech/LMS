@@ -25,6 +25,7 @@
                     @php
                         use App\Models\Category;
                         $categories = Category::where('parent_id', 0)->get();
+                        // $categories = Category::all();
                     @endphp
 
                     <div class="dropdown p-1">
