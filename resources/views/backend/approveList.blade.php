@@ -20,33 +20,18 @@
                             <th scope="col">Book_ID</th>
                             <th scope="col">User_ID</th>
                             <th scope="col">Approval</th>
-                            <th scope="col">Date of Return</th>
+                            <th scope="col">Call ID</th>
                             <th scope="col" colspan="2">Option</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- <tr>
-                            <th scope="row">1</th>
-                            <td>3</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>02-05-2023</td>
-                            <td>
-                                <button class="btn btn-warning">
-                                    Renew
-                                </button>
-                                <button class="btn btn-success">
-                                    Receive
-                                </button>
-                            </td>
-                        </tr> --}}
                         @foreach ($issues as $issue)
                             <tr>
                                 <th scope="row">{{ $issue['id'] }}</th>
-                                <td>{{ $issue['book_id'] }}</td>
-                                <td>{{ $issue['user_id'] }}</td>
+                                <td>{{ $issue['book_id'] }}_{{ $issue['book']? $issue['book']['bookname'] : 'BOOK DELETED' }}</td>
+                                <td>{{ $issue['user_id'] }}_{{ $issue['user']['name'] }}</td>
                                 <td>{{ $issue['approval'] }}</td>
-                                <td>{{ $issue['date_of_return'] }}</td>
+                                <td>{{ $issue['book']['callid'] }}</td>
                                 
                                 <td>
                                     <a href="/admin/issue/{{ $issue->id }}/approve" class="text-white btn btn-success">Approve</a>
