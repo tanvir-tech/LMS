@@ -214,7 +214,6 @@ class BookController extends Controller
             ->orWhere('authorname', 'like', '%' . $req->input('query') . '%')
             ->orWhere('publisher', 'like', '%' . $req->input('query') . '%')
             ->orWhere('year', 'like', '%' . $req->input('query') . '%')
-            // ->orWhere('created_at', 'like', '%' . $req->input('query') . '%')
             ->get();
 
         return view('frontend/home', ['books' => $books]);
