@@ -20,7 +20,7 @@
                 </div>
             @endif
             <div class="card-body">
-                <form class="row" action="/request" method="POST" enctype="multipart/form-data">
+                <form class="row" action="/userrequest" method="POST">
                     @csrf
                     <div class="col-md-6 p-4">
                         <label class="form-label">Book Name</label>
@@ -35,12 +35,12 @@
                         <input class="form-control" name="publisher">
                     </div>
                     <div class="col-md-6 p-4">
-                        <label class="form-label">Category</label>
-                        <input class="form-control" name="category">
-                    </div>
-                    <div class="col-md-6 p-4">
                         <label class="form-label">Edition</label>
                         <input type="number" class="form-control" name="edition">
+                    </div>
+                    <div class="col-md-6 p-4">
+                        <label class="form-label">Year</label>
+                        <input type="number" class="form-control" name="year">
                     </div>
                     <div class="col-md-6 p-4">
                         <label class="form-label">Language</label>

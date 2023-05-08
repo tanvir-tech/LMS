@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookRequestController;
 
 
 
@@ -92,6 +93,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
 Route::get('/userrequest', function () {
     return view('frontend/userRequest');
 });
+Route::post('/userrequest', [BookRequestController::class, 'userrequest']);
 
 
 

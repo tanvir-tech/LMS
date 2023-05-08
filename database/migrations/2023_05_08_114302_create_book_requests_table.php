@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('language');
             // $table->integer('quantity');
             // $table->string('callid');
-            $table->string('bookcoverlink');
+            // $table->string('bookcoverlink');
             $table->timestamps();
         });
     }
