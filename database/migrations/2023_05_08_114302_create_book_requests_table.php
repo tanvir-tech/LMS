@@ -20,12 +20,8 @@ return new class extends Migration
             $table->string('authorname');
             $table->string('publisher');
             $table->integer('year');
-            // $table->integer('category_id');
             $table->integer('edition');
             $table->string('language');
-            // $table->integer('quantity');
-            // $table->string('callid');
-            // $table->string('bookcoverlink');
             $table->timestamps();
         });
     }

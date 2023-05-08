@@ -40,6 +40,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     //borrow by book id
     Route::get('/book/{id}/borrow', [IssueController::class, 'create'])->name('borrow');
+
+    // Book-Request 
+    Route::get('/userrequest', function () {
+        return view('frontend/userRequest');
+    });
+    Route::post('/userrequest', [BookRequestController::class, 'userrequest']);
+
 });
 
 
@@ -57,9 +64,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
         return view('backend/createBook');
     });
 
-    Route::get('/requestlist', function () {
-        return view('backend/requestlist');
-    });
+    
 
     Route::get('/createCat',  [CategoryController::class, 'index']);
     Route::post('/createCat', [CategoryController::class, 'createCat']);
@@ -85,15 +90,16 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
     Route::get('/remind/issue/{id}', [IssueController::class, 'remind']);
     // remindAll
     Route::get('/remind/all/issue', [IssueController::class, 'remindAll']);
+
+
+
+    // Book bring request 
+    Route::get('/bookrequestlist', [BookRequestController::class, 'bookrequestlist']);
 });
 
 
 
-// Request 
-Route::get('/userrequest', function () {
-    return view('frontend/userRequest');
-});
-Route::post('/userrequest', [BookRequestController::class, 'userrequest']);
+
 
 
 

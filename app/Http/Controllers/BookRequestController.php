@@ -26,7 +26,21 @@ class BookRequestController extends Controller
         $bookrequest->language = $req->language;
         $bookrequest->save();
 
-
         return redirect('/userrequest')->with('success', 'Book requested successfully!');
     }
+
+
+    public function bookrequestlist()
+    {
+        $bookrequests = BookRequest::all();
+        if (empty($bookrequests->last())) {
+            return redirect('/messagepage')->with('error', 'No book requests');
+        } else {
+            $bookrequests->last()->paginate(18);
+        }
+        // return $bookrequests;
+        return view('backend/requestlist', ['bookrequests' => $bookrequests]);
+    }
+
+
 }
