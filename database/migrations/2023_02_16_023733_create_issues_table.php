@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('book_id')->unsigned();
             $table->boolean('approval')->default(0);
             $table->date('date_of_return')->nullable();
+            $table->boolean('ismailed');
             $table->timestamps();
         });
     }

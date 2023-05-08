@@ -113,6 +113,7 @@ class BookController extends Controller
         $book->quantity = $req->quantity;
         $book->callid = $req->callid;
         $book->bookcoverlink = $new_bookImageName;
+        $book->isrequest = false;
         $book->save();
 
 

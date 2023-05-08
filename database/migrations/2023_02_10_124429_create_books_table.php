@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->string('callid');
             $table->string('bookcoverlink');
+            $table->boolean('isrequest');
             $table->timestamps();
         });
     }
