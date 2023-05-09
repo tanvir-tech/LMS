@@ -93,8 +93,10 @@ Route::prefix('admin')->middleware(['auth:sanctum', config('jetstream.auth_sessi
     // remindAll
     Route::get('/remind/all/issue', [IssueController::class, 'remindAll']);
 
-
-
+    // all issues
+    Route::get('/allissues', [IssueController::class, 'index']);
+    // search issues by user
+    Route::get('/searchissue',[IssueController::class,'searchissue']);
     // Book bring request 
     Route::get('/bookrequestlist', [BookRequestController::class, 'bookrequestlist']);
 });

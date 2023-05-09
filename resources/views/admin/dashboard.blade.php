@@ -39,6 +39,7 @@
                             <li><a href="/admin/approvelist" key="t-products">Approval list</a></li>
                             <li><a href="/admin/issuelist" key="t-product-detail">Issue list</a></li>
                             <li><a href="/admin/bookrequestlist" key="t-orders">Book request list</a></li>
+                            <li><a href="/admin/allissues" key="t-orders">All Issues</a></li>
                         </ul>
                     </li>
     

@@ -22,12 +22,19 @@ class IssueController extends Controller
      */
     public function index()
     {
-        $issues = Issue::all();
+        $issues = Issue::orderBy('id', 'DESC')->get();;
         if (empty($issues)) {
             return redirect('/messagepage')->with('error', 'No book issue requests');
         } 
         // return $books;
-        return view('backend/approveList', ['issues' => $issues]);
+        return view('backend/allissueslist', ['issues' => $issues]);
+    }
+
+
+    function searchissue(Request $req)
+    {
+        $issues = Issue::where('user_id', '=', $req->input('query'))->get();
+        return view('backend/allissueslist', ['issues' => $issues]);
     }
 
 
