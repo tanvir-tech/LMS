@@ -13,7 +13,7 @@
                 </h3>
                 <div class="float-right">
                     <form class="form-inline my-2 my-lg-0" action="/admin/searchissue" method="GET">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search by user ID" aria-label="Search"
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search issue by user ID" aria-label="Search"
                             name="query">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>

@@ -81,6 +81,7 @@ class IssueController extends Controller
         $issue->book_id = $id;
         $issue->user_id = Auth::user()->id;
         $issue->date_of_return = null;
+        $issue->ismailed = false;
         $issue->save();
 
         return redirect('/')->with('success', 'Book issue request sent successfully! Wait for admin approval.');
