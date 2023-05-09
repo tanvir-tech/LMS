@@ -1,5 +1,5 @@
-@extends('admin/dashboard')
-@section('admin-content')
+@extends('includes/master')
+@section('content')
     <div class="container mt-5">
 
 
@@ -11,7 +11,6 @@
                 <h3 class=" d-flex justify-content-center ">
                     List of book issued
                 </h3>
-                <a href="/admin/remind/all/issue" class="text-white btn btn-primary d-flex justify-content-center">Remind all</a>
             </div>
             <div class="card-body">
                 <table class="table table-hover">
@@ -24,25 +23,10 @@
                             <th scope="col">Date of Return</th>
                             <th>Late</th>
                             <th>Fine</th>
-                            <th width="270px">Action</th>
+                            {{-- <th width="270px">Action</th> --}}
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- <tr>
-                            <th scope="row">1</th>
-                            <td>3</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>02-05-2023</td>
-                            <td>
-                                <button class="btn btn-warning">
-                                    Renew
-                                </button>
-                                <button class="btn btn-success">
-                                    Receive
-                                </button>
-                            </td>
-                        </tr> --}}
                         @php
                             use Carbon\Carbon;
                             $today = Carbon::now();
@@ -56,11 +40,6 @@
                                 <td>{{ $issue['date_of_return'] }}</td>
                                 <td>
                                     @php
-                                        // $returnday = date_create($issue['date_of_return']);
-                                        // $late=date_diff($returnday,$today)->format('%d days');
-                                        // $late=date_diff($today,$returnday)->format('%R%a days');
-                                        
-                                        // $late = $today->diff($returnday)->days;
                                         $late = $today->diff($issue['date_of_return'])->format('%R%a days');
                                         
                                         if (str_contains($late, '+')) {
@@ -73,14 +52,9 @@
                                     {{ $lateint }} days
                                 </td>
                                 <td>{{ 10 * $lateint }} Taka</td>
-                                <td>
-                                    <a href="/admin/issue/{{ $issue->id }}/renew"
-                                        class="text-white btn btn-warning">Renew</a>
-                                    <a href="/admin/issue/{{ $issue->id }}/receive"
-                                        class="text-white btn btn-success">Receive</a>
-                                    <a href="/admin/remind/issue/{{ $issue->id }}"
-                                        class="text-white btn btn-danger">Remind</a>
-                                </td>
+                                {{-- <td>
+                                    <a href="/pay-fine/{{ $issue->id }}" class="text-white btn btn-warning">Pay fine</a>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>

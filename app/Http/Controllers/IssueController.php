@@ -30,6 +30,19 @@ class IssueController extends Controller
         return view('backend/approveList', ['issues' => $issues]);
     }
 
+
+    public function borrowlist(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $issues = Issue::where('user_id', '=', $user_id)->get();
+        if (empty($issues)) {
+            return redirect('/messagepage')->with('error', 'No book issue requests');
+        } 
+        // return $issues;
+        return view('frontend/issuelist', ['issues' => $issues]);
+    }
+
+
     public function approvelist()
     {
         $issues = Issue::where('approval', '=', 0)->get();

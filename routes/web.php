@@ -47,6 +47,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
     Route::post('/userrequest', [BookRequestController::class, 'userrequest']);
 
+    Route::get('/borrowlist', [IssueController::class, 'borrowlist'])->name('borrowlist');
+
 });
 
 

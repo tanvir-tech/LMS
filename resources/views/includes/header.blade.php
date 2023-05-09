@@ -123,11 +123,14 @@
                             <a class="dropdown-item" href="/admin/dashboard">
                                 <span key="t-profile">Admin_Dashboard</span></a>
                         @else
-                            <a class="dropdown-item" href="/user/fine">
+                            <a class="dropdown-item" href="/fine">
                                 <span key="t-profile">My Fine</span></a>
 
-                            <a class="dropdown-item" href="/user/requests">
-                                <span key="t-profile">My Requests</span></a>
+                            <a class="dropdown-item" href="/requestedbooks">
+                                <span key="t-profile">Requested books</span></a>
+                            
+                            <a class="dropdown-item" href="/borrowlist">
+                                <span key="t-profile">Borrow-list</span></a>
                         @endif
 
                         <div class="dropdown-divider"></div>
