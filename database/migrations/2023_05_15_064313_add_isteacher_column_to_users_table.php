@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('isteacher')->nullable();
+            $table->boolean('isteacher')->default(0);
         });
     }
 

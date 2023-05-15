@@ -77,14 +77,37 @@ class IssueController extends Controller
      */
     public function create($id)
     {
-        $issue = new Issue();
-        $issue->book_id = $id;
-        $issue->user_id = Auth::user()->id;
-        $issue->date_of_return = null;
-        $issue->ismailed = false;
-        $issue->save();
+        // check if the user is illigible to get a book
 
-        return redirect('/')->with('success', 'Book issue request sent successfully! Wait for admin approval.');
+        $user_id = Auth::user()->id;
+        $issueCount = Issue::where('user_id', '=', $user_id)
+                            // ->where('approval','=',1)
+                            ->get()
+                            ->count();
+        
+        $book = Book::find($id);
+
+        if($book->quantity>1){
+
+            // student <4 ______and______teacher no limit
+
+            if(Auth::user()->isteacher==0 && $issueCount>3){
+                // return $issueCount;
+                return redirect('/')->with('error', 'You are not illigible for new book issue.Return any book or cancel any borrow request and try again.');
+            };
+
+
+            $issue = new Issue();
+            $issue->book_id = $id;
+            $issue->user_id = $user_id;
+            $issue->date_of_return = null;
+            $issue->ismailed = false;
+            $issue->save();
+
+            return redirect('/')->with('success', 'Book issue request sent successfully! Wait for admin approval.');
+        };
+
+        
     }
 
     public function approve($id)
