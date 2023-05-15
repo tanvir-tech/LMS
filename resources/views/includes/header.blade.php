@@ -123,8 +123,14 @@
                             <a class="dropdown-item" href="/admin/dashboard">
                                 <span key="t-profile">Admin_Dashboard</span></a>
                         @else
+                        
+                            @if (Auth::user()->isteacher == true)
+                                <a class="dropdown-item" href="/teache/dashboard">
+                                    <span key="t-profile">Teacher_Dashboard</span>
+                                </a>
+                            @endif
                             <a class="dropdown-item" href="/fine">
-                                <span key="t-profile">My Fine</span></a>
+                                <span key="t-profile">My Fine </span></a>
 
                             <a class="dropdown-item" href="/requestedbooks">
                                 <span key="t-profile">Requested books</span></a>
@@ -153,9 +159,6 @@
 
         </div>
     </nav>
-
-
-
 
 
 

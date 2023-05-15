@@ -18,10 +18,10 @@ return new class extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('bookname');
             $table->string('authorname');
-            $table->string('publisher');
-            $table->integer('year');
-            $table->integer('edition');
-            $table->string('language');
+            $table->string('publisher')->nullable();
+            $table->integer('year')->nullable();
+            $table->integer('edition')->nullable();
+            $table->string('language')->nullable();
             $table->timestamps();
         });
     }
