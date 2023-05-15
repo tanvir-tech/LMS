@@ -125,7 +125,7 @@
                         @else
                         
                             @if (Auth::user()->isteacher == true)
-                                <a class="dropdown-item" href="/teache/dashboard">
+                                <a class="dropdown-item" href="/teacher/dashboard">
                                     <span key="t-profile">Teacher_Dashboard</span>
                                 </a>
                             @endif
