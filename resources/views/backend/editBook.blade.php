@@ -69,7 +69,7 @@
                     </div>
                     <div class="col-md-6 p-4">
                         <label class="form-label">Call ID</label>
-                        <input class="form-control" name="callid" value="{{$book->callid}}">
+                        <input class="form-control" name="callid">
                     </div>
 
                     <div class="col-md-6 p-4">

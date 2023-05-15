@@ -169,10 +169,21 @@ class BookController extends Controller
             'edition' => 'required',
             'language' => 'required',
             'quantity' => 'required',
-            'callid' => 'required',
+            // 'callid' => 'required',
             // 'bookcover' => 'required|file|mimes:jpg,jpeg,bmp,png'
         ]);
         // return 'updating';
+
+
+
+
+        // generate call id
+        $category = Category::find($req->category_id);
+        $callidprefix = substr($req->bookname,0,3).substr($req->authorname,0,3)
+                        .substr($req->publisher,0,3).substr($req->edition,0,3)
+                        .substr($category->name,0,4);
+
+
         $book = Book::find($id);
 
 
@@ -184,7 +195,7 @@ class BookController extends Controller
         $book->edition = $req->edition;
         $book->language = $req->language;
         $book->quantity = $req->quantity;
-        $book->callid = $req->callid;
+        $book->callid = $callidprefix.($req->callid);
         // $book->bookcoverlink = $new_bookImageName;
         $book->save();
         
