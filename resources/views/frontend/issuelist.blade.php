@@ -37,7 +37,14 @@
                                 <td>{{ $issue['book_id'] }}_{{ $issue['book']? $issue['book']['bookname'] : 'BOOK DELETED' }}</td>
                                 <td>{{ $issue['user_id'] }}_{{ $issue['user']['name'] }}</td>
                                 <td>{{ $issue['approval'] }}</td>
-                                <td>{{ $issue['date_of_return'] }}</td>
+                                <td>
+                                    {{-- {{ $issue['date_of_return']? $issue['date_of_return'] : 'Not approved yet' }} --}}
+                                    @if($issue['date_of_return'])
+                                        {{$issue['date_of_return']}}
+                                        @else 
+                                            <a href="/issue/{{ $issue->id }}/cancel" class="text-white btn btn-danger">Cancel</a>
+                                    @endif
+                                </td>
                                 <td>
                                     @php
                                         $late = $today->diff($issue['date_of_return'])->format('%R%a days');

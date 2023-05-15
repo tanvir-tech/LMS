@@ -40,6 +40,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     //borrow by book id
     Route::get('/book/{id}/borrow', [IssueController::class, 'create'])->name('borrow');
+    //cancel by issue id
+    Route::get('/issue/{id}/cancel', [IssueController::class, 'delete'])->name('borrow-cancel');
 
     // Book-Request 
     Route::get('/userrequest', function () {
