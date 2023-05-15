@@ -43,4 +43,24 @@ class BookRequestController extends Controller
     }
 
 
+    public function avail($id)
+    {
+        $bookrequest = BookRequest::find($id);
+        
+        // convert bookrequest to book
+        $book = new Book();
+        $book->bookname = $bookrequest->bookname;
+        $book->authorname = $bookrequest->authorname;
+        $book->publisher = $bookrequest->publisher;
+        $book->year = $bookrequest->year;
+        $book->edition = $req->edition;
+        $book->language = $req->language;
+        
+
+        $categories = Category::all();
+        
+        return View::make('backend/editBook', ['categories' => $categories])->with('book', $book);
+    }
+
+
 }
