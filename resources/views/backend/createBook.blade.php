@@ -74,9 +74,16 @@
                         <input class="form-control" name="callid">
                     </div>
 
+                    <script>
+                        function preview() {
+                            frame.src=URL.createObjectURL(event.target.files[0]);
+                        }
+                    </script>
                     <div class="col-md-6 p-4">
                         <label for="bookcover">Choose a book cover:</label>
-                        <input type="file" id="bookcover" name="bookcover">
+                        <img id="frame" src="" width="200px" height="200px"/>
+                        <input type="file" id="bookcover" name="bookcover" onchange="preview()">
+                        
                     </div>
                     <div class="row"></div>
 
