@@ -57,7 +57,6 @@
                                 <div class="col">
                                     <input type="hidden" name="book_id" value="{{ $book['id'] }}">
                                     <button type="submit" class="btn btn-success">Borrow</button>
-                                    <a href="/book/{{ $book->id }}/borrow" class="text-white btn btn-outline-success">Borrow</a>
                                 </div>
                             </div>
                         </form>
