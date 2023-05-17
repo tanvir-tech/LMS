@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('issues', function (Blueprint $table) {
-            $table->string('book_copy_id');
+            $table->string('book_copy_id')->nullable();
             $table->boolean('isactive')->default(1);
         });
     }
