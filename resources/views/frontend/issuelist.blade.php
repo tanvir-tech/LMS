@@ -19,6 +19,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Book_ID</th>
                             <th scope="col">User_ID</th>
+                            <th scope="col">Book_copy_ID</th>
                             <th scope="col">Approval</th>
                             <th scope="col">Date of Return</th>
                             <th>Late</th>
@@ -36,6 +37,9 @@
                                 <th scope="row">{{ $issue['id'] }}</th>
                                 <td>{{ $issue['book_id'] }}_{{ $issue['book']? $issue['book']['bookname'] : 'BOOK DELETED' }}</td>
                                 <td>{{ $issue['user_id'] }}_{{ $issue['user']['name'] }}</td>
+                                <td>
+                                    {{ $issue['booktoken']['book_copy_id'] }}
+                                </td>
                                 <td>{{ $issue['approval'] }}</td>
                                 <td>
                                     {{-- {{ $issue['date_of_return']? $issue['date_of_return'] : 'Not approved yet' }} --}}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Issue;
 use App\Models\Book;
+use App\Models\Booktoken;
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -22,18 +23,23 @@ class IssueController extends Controller
      */
     public function index()
     {
-        $issues = Issue::orderBy('id', 'DESC')->get();;
+        $issues = Issue::where('isactive', '=', 1)
+                        ->orderBy('id', 'DESC')
+                        ->get();
+
         if (empty($issues)) {
             return redirect('/messagepage')->with('error', 'No book issue requests');
         } 
-        // return $books;
+        // return $issues[0]->booktoken;
         return view('backend/allissueslist', ['issues' => $issues]);
     }
 
 
     function searchissue(Request $req)
     {
-        $issues = Issue::where('user_id', '=', $req->input('query'))->get();
+        $issues = Issue::where('user_id', '=', $req->input('query'))
+                        ->where('isactive', '=', 1)
+                        ->get();
         return view('backend/allissueslist', ['issues' => $issues]);
     }
 
@@ -41,7 +47,9 @@ class IssueController extends Controller
     public function borrowlist(Request $request)
     {
         $user_id = Auth::user()->id;
-        $issues = Issue::where('user_id', '=', $user_id)->get();
+        $issues = Issue::where('user_id', '=', $user_id)
+                        ->where('isactive', '=', 1)
+                        ->get();
         if (empty($issues)) {
             return redirect('/messagepage')->with('error', 'No book issue requests');
         } 
@@ -52,7 +60,9 @@ class IssueController extends Controller
 
     public function approvelist()
     {
-        $issues = Issue::where('approval', '=', 0)->get();
+        $issues = Issue::where('approval', '=', 0)
+                        ->where('isactive', '=', 1)
+                        ->get();
         if (empty($issues)) {
             return redirect('/messagepage')->with('error', 'No book issued');
         } 
@@ -61,7 +71,9 @@ class IssueController extends Controller
 
     public function issuelist()
     {
-        $issues = Issue::where('approval', '=', 1)->get();
+        $issues = Issue::where('approval', '=', 1)
+                        ->where('isactive', '=', 1)
+                        ->get();
         if (empty($issues)) {
             return redirect('/messagepage')->with('error', 'No book issued');
         } 
@@ -75,17 +87,21 @@ class IssueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create(Request $req)
     {
-        // check if the user is illigible to get a book
+        $book_id = $req->book_id;
+        $booktoken_id = $req->booktoken_id;
 
+
+        // check if the user is illigible to get a book
         $user_id = Auth::user()->id;
         $issueCount = Issue::where('user_id', '=', $user_id)
                             // ->where('approval','=',1)
                             ->get()
                             ->count();
         
-        $book = Book::find($id);
+        $book = Book::find($book_id);
+        $booktoken = Booktoken::find($booktoken_id);
 
         if($book->quantity>1){
 
@@ -98,11 +114,18 @@ class IssueController extends Controller
 
 
             $issue = new Issue();
-            $issue->book_id = $id;
+            $issue->book_id = $book_id;
             $issue->user_id = $user_id;
             $issue->date_of_return = null;
             $issue->ismailed = false;
+            $issue->booktoken_id = $booktoken->id;
+            $booktoken->isavailable = 0;
+            
+            $booktoken->save();
             $issue->save();
+
+            $booktoken->issue_id = $issue->id;
+            $booktoken->save();
 
             return redirect('/')->with('success', 'Book issue request sent successfully! Wait for admin approval.');
         };
@@ -131,7 +154,14 @@ class IssueController extends Controller
     public function deny($id)
     {
         $issue = Issue::find($id);
-        $issue->delete();
+        $booktoken = Booktoken::find($issue->booktoken_id);
+
+        $booktoken->isavailable=1;
+        $booktoken->issue_id=null;
+        $issue->isactive = 0;
+
+        $issue->save();
+        $booktoken->save();
         
         return redirect('/admin/approvelist')->with('error', 'Book issue request deleted.');
     }
@@ -153,7 +183,15 @@ class IssueController extends Controller
         //increase book quantity
         $book->quantity = $book->quantity+1;
         $book->save();
-        $issue->delete();
+        
+        $booktoken = Booktoken::find($issue->booktoken_id);
+
+        $booktoken->isavailable=1;
+        $booktoken->issue_id=null;
+        $issue->isactive = 0;
+
+        $issue->save();
+        $booktoken->save();
         
         return redirect('/admin/issuelist')->with('success', 'Book issue request deleted.');
     }
@@ -201,7 +239,9 @@ class IssueController extends Controller
         $today = Carbon::now();
                 // ->subDay(7);
         // find fineable issues
-        $issues = Issue::where('date_of_return','<',$today)->get();
+        $issues = Issue::where('date_of_return','<',$today)
+                        ->where('isactive', '=', 1)
+                        ->get();
         // loop-call remind function with issue id
         foreach($issues as $issue){
             $issue = Issue::find($issue->id);
@@ -232,7 +272,14 @@ class IssueController extends Controller
     public function delete($id)
     {
         $issue = Issue::find($id);
-        $issue->delete();
+        $booktoken = Booktoken::find($issue->booktoken_id);
+
+        $booktoken->isavailable=1;
+        $booktoken->issue_id=null;
+        $issue->isactive = 0;
+
+        $issue->save();
+        $booktoken->save();
         
         return redirect('/borrowlist')->with('error', 'Book issue request deleted.');
     }

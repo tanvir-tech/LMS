@@ -44,7 +44,25 @@
                             </div>
                         </div>
                     @elseif(Auth::guard('web')->check() && Auth::user()->hasRole('user'))
-                        <a href="/book/{{ $book->id }}/borrow" class="text-white btn btn-success">Borrow</a>
+
+                        <form action="/borrow" method="GET" >
+                            <div class="row">
+                                <div class="col-md-3"> 
+                                    <select class="form-select" aria-label="Default select example" name="booktoken_id">
+                                        @foreach ($booktokens as $booktoken)
+                                            <option value="{{$booktoken->id}}">{{$booktoken->book_copy_id}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input type="hidden" name="book_id" value="{{ $book['id'] }}">
+                                    <button type="submit" class="btn btn-success">Borrow</button>
+                                    <a href="/book/{{ $book->id }}/borrow" class="text-white btn btn-outline-success">Borrow</a>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        
                     @endif
                 </div>
 

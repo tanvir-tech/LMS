@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Booktoken;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -59,9 +60,15 @@ class BookController extends Controller
     public function detail($id)
     {
         $book = Book::find($id);
+
+        // find booktokens
+        $booktokens = Booktoken::where('book_id', '=',$book->id)
+                                ->where('isavailable', '=', 1)
+                                ->get();
         
-        // return $book;
-        return view('frontend/detail', ['book' => $book]);
+        // return view('frontend/detail', ['book' => $book]);
+        // return $booktokens;
+        return view('frontend/detail', compact('book', 'booktokens'));
     }
 
     /**
@@ -121,6 +128,18 @@ class BookController extends Controller
         $book->callid = $callidprefix.($req->callid);
         $book->bookcoverlink = $new_bookImageName;
         $book->save();
+
+        
+        for ($copy_id = 1; $copy_id <= $book->quantity; $copy_id+=1) {
+            // create book tokens by quantity
+            $booktoken = new Booktoken();
+            $booktoken->book_id = $book->id;
+            $booktoken->book_call_id = $book->callid;
+            // generate copyid
+            $booktoken->book_copy_id = $book->callid.$copy_id;
+            $booktoken->save();
+        };
+        
 
         return redirect('/admin/createBook')->with('success', 'Book created successfully!');
     }

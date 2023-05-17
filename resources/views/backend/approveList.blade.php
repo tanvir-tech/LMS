@@ -19,8 +19,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Book_ID</th>
                             <th scope="col">User_ID</th>
+                            <th scope="col">Book copy ID</th>
                             <th scope="col">Approval</th>
-                            <th scope="col">Call ID</th>
                             <th scope="col" colspan="2">Option</th>
                         </tr>
                     </thead>
@@ -30,9 +30,10 @@
                                 <th scope="row">{{ $issue['id'] }}</th>
                                 <td>{{ $issue['book_id'] }}_{{ $issue['book']? $issue['book']['bookname'] : 'BOOK DELETED' }}</td>
                                 <td>{{ $issue['user_id'] }}_{{ $issue['user']['name'] }}</td>
+                                <td>
+                                    {{ $issue['booktoken']['book_copy_id'] }}
+                                </td>
                                 <td>{{ $issue['approval'] }}</td>
-                                <td>{{ $issue['book']['callid'] }}</td>
-                                
                                 <td>
                                     <a href="/admin/issue/{{ $issue->id }}/approve" class="text-white btn btn-success">Approve</a>
                                     <a href="/admin/issue/{{ $issue->id }}/deny" class="text-white btn btn-danger">Deny</a>

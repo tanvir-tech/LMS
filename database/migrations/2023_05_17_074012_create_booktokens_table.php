@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('booktokens', function (Blueprint $table) {
             $table->id();
             $table->integer('book_id')->unsigned();
+            $table->integer('issue_id')->nullable();
             $table->string('book_call_id');
             $table->string('book_copy_id');
             $table->boolean('isavailable')->default(1);
