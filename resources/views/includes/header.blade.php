@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="/home">
-            <img src="{{ asset('gallery')}}/lms-logo.png" alt="lms logo" width="110px">
+            <img src="{{ asset('gallery')}}/ict-lib.png" alt="lms logo" width="120px">
         </a>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
