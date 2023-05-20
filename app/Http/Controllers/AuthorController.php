@@ -43,7 +43,7 @@ class AuthorController extends Controller
         $publishers = Book::select('publisher')->distinct()->get();
 
         if (empty($publishers->last())) {
-            return redirect('/messagepage')->with('error', 'No authors');
+            return redirect('/messagepage')->with('error', 'No publishers');
         } else {
             $publishers->last()->paginate(18);
         }
@@ -56,7 +56,7 @@ class AuthorController extends Controller
         $books = Book::where('publisher', '=', $publisher)->get();
 
         if (empty($books->last())) {
-            return redirect('/messagepage')->with('error', 'No authors');
+            return redirect('/messagepage')->with('error', 'No publishers');
         } else {
             $books->last()->paginate(18);
         }

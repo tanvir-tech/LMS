@@ -25,9 +25,13 @@
 
                 {{-- Book card end --}}
             @endforeach
+
+            
         </div>
 
-
-
+        
+        <div class="container d-flex justify-content-center">
+            {!! $books->links() !!}
+        </div>
     </div>
 @endsection

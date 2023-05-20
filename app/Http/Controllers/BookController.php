@@ -20,23 +20,19 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
-        if (empty($books->last())) {
+        $books = Book::paginate(6);
+        if (empty($books)) {
             return redirect('/messagepage')->with('error', 'No books');
-        } else {
-            $books->last()->paginate(18);
-        }
+        } 
         // return $books;
         return view('frontend/home', ['books' => $books]);
     }
 
     public function latestBooks()
     {
-        $books = Book::orderBy('year', 'DESC')->get();
-        if (empty($books->last())) {
+        $books = Book::orderBy('year', 'DESC')->get()->last()->paginate(6);
+        if (empty($books)) {
             return redirect('/messagepage')->with('error', 'No books');
-        } else {
-            $books->last()->paginate(18);
         }
         // return $books;
         return view('frontend/yearfilter', ['books' => $books]);
@@ -44,13 +40,12 @@ class BookController extends Controller
 
     public function yearfilter(Request $req)
     {
-        $books = Book::whereBetween('year', [$req->input('early'), $req->input('late')])->get();
+        $books = Book::whereBetween('year', [$req->input('early'), $req->input('late')])
+                        ->get()->last()->paginate(6);
 
-        if (empty($books->last())) {
+        if (empty($books)) {
             // Session::flash('error', 'No books'); 
             return view('frontend/yearfilter', ['books' => $books]);
-        } else {
-            $books->last()->paginate(18);
         }
         // return $books;
         return view('frontend/yearfilter', ['books' => $books]);
