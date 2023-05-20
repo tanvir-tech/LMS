@@ -20,7 +20,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::paginate(6);
+        $books = Book::paginate(12);
         if (empty($books)) {
             return redirect('/messagepage')->with('error', 'No books');
         } 
@@ -30,7 +30,7 @@ class BookController extends Controller
 
     public function latestBooks()
     {
-        $books = Book::orderBy('year', 'DESC')->get()->last()->paginate(6);
+        $books = Book::orderBy('year', 'DESC')->get()->last()->paginate(12);
         if (empty($books)) {
             return redirect('/messagepage')->with('error', 'No books');
         }
@@ -41,7 +41,7 @@ class BookController extends Controller
     public function yearfilter(Request $req)
     {
         $books = Book::whereBetween('year', [$req->input('early'), $req->input('late')])
-                        ->get()->last()->paginate(6);
+                        ->get()->last()->paginate(12);
 
         if (empty($books)) {
             // Session::flash('error', 'No books'); 
