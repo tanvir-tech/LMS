@@ -48,9 +48,9 @@
         </div>
 
 
-        <div class="container d-flex justify-content-center">
+        {{-- <div class="container d-flex justify-content-center">
             {!! $books->links() !!}
-        </div>
+        </div> --}}
 
 
 

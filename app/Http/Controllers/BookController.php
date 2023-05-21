@@ -30,7 +30,7 @@ class BookController extends Controller
 
     public function latestBooks()
     {
-        $books = Book::orderBy('year', 'DESC')->get()->last()->paginate(12);
+        $books = Book::orderBy('year', 'DESC')->get();
         if (empty($books)) {
             return redirect('/messagepage')->with('error', 'No books');
         }
@@ -260,7 +260,7 @@ class BookController extends Controller
 
         foreach($subcategories as $subcategory){
             $subbooks = Book::where('category_id', '=',$subcategory->id)->get();
-            $books = $books->merge($subbooks);
+            $books = $books->merge($subbooks)->last()->paginate(12);
         }
 
         

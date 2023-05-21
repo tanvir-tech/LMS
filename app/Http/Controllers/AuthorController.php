@@ -26,13 +26,11 @@ class AuthorController extends Controller
     {
         $books = Book::where('authorname', '=', $authorname)->get();
 
-        if (empty($books->last())) {
+        if (empty($books)) {
             return redirect('/messagepage')->with('error', 'No authors');
-        } else {
-            $books->last()->paginate(18);
         }
         // return $books;
-        return view('frontend/home', ['books' => $books]);
+        return view('frontend/yearfilter', ['books' => $books]);
     }
 
 
@@ -57,11 +55,9 @@ class AuthorController extends Controller
 
         if (empty($books->last())) {
             return redirect('/messagepage')->with('error', 'No publishers');
-        } else {
-            $books->last()->paginate(18);
         }
         // return $books;
-        return view('frontend/home', ['books' => $books]);
+        return view('frontend/yearfilter', ['books' => $books]);
     }
 
 
